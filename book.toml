@@ -1,0 +1,10 @@
+[book]
+authors = ["Rust Syndicate"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Uptest substrate documentation"
+
+
+[output.html]
+git-repository-url = "https://github.com/uptest-sc/uptest-sc.github.io"
