@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/connect.html" class="active"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.1.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.2.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.3.</strong> Libuptest Decoding Extrinsics</a></li><li class="chapter-item expanded "><a href="../code/jsonrpc.html"><strong aria-hidden="true">1.4.</strong> Libuptest JsonRPCClient</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/connect.html" class="active"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,6 +172,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
