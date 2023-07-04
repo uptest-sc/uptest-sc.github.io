@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html" class="active"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/connect.html"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html" class="active"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/connect.html"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li><li class="chapter-item expanded "><a href="../code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.2.</strong> Check added and changed storage items after a runtime upgrade</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -153,7 +153,9 @@ This makes uptest compatible with standard JsonRpsee syntax.</p>
 <h2 id="connect-to-chain"><a class="header" href="#connect-to-chain">Connect to chain:</a></h2>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let custom_client: JsonrpseeClient = JsonrpseeClient::new(&quot;ws://my_node.local:9944&quot;);   
+</span>use libuptest::jsonrpseeclient::JsonrpseeClient;
+
+let custom_client: JsonrpseeClient = JsonrpseeClient::new(&quot;ws://my_node.local:9944&quot;);   
 <span class="boring">}</span></code></pre></pre>
 <h2 id="default-endpoints-to-chains"><a class="header" href="#default-endpoints-to-chains">Default endpoints to chains</a></h2>
 <p>Out of the box 5 pre-configured endpoints have been added: </p>
@@ -173,6 +175,13 @@ let kusama_client: JsonrpseeClient = JsonrpseeClient::kusama_default_url();
 
 // connect to wss://ws.mof.sora.org:443
 let sora_client: JsonrpseeClient = JsonrpseeClient::sora_default_url();
+
+<span class="boring">}</span></code></pre></pre>
+<h2 id="subscribe-to-chain"><a class="header" href="#subscribe-to-chain">Subscribe to chain</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use libuptest::jsonrpseeclient::subscription::{HandleSubscription, Request};
+use libuptest::jsonrpseeclient::subscription::Subscribe;
 
 <span class="boring">}</span></code></pre></pre>
 
