@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/connect.html"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/connect.html"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li><li class="chapter-item expanded "><a href="code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.2.</strong> Check added and changed storage items after a runtime upgrade</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -156,7 +156,9 @@ This makes uptest compatible with standard JsonRpsee syntax.</p>
 <h2 id="connect-to-chain"><a class="header" href="#connect-to-chain">Connect to chain:</a></h2>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>let custom_client: JsonrpseeClient = JsonrpseeClient::new(&quot;ws://my_node.local:9944&quot;);   
+</span>use libuptest::jsonrpseeclient::JsonrpseeClient;
+
+let custom_client: JsonrpseeClient = JsonrpseeClient::new(&quot;ws://my_node.local:9944&quot;);   
 <span class="boring">}</span></code></pre></pre>
 <h2 id="default-endpoints-to-chains"><a class="header" href="#default-endpoints-to-chains">Default endpoints to chains</a></h2>
 <p>Out of the box 5 pre-configured endpoints have been added: </p>
@@ -178,6 +180,13 @@ let kusama_client: JsonrpseeClient = JsonrpseeClient::kusama_default_url();
 let sora_client: JsonrpseeClient = JsonrpseeClient::sora_default_url();
 
 <span class="boring">}</span></code></pre></pre>
+<h2 id="subscribe-to-chain"><a class="header" href="#subscribe-to-chain">Subscribe to chain</a></h2>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use libuptest::jsonrpseeclient::subscription::{HandleSubscription, Request};
+use libuptest::jsonrpseeclient::subscription::Subscribe;
+
+<span class="boring">}</span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-types"><a class="header" href="#libuptest-types">Libuptest types</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-ws_mod-helper"><a class="header" href="#libuptest-ws_mod-helper">Libuptest ws_mod helper</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-decoding-extrinsics"><a class="header" href="#libuptest-decoding-extrinsics">Libuptest Decoding Extrinsics</a></h1>
@@ -185,6 +194,39 @@ let sora_client: JsonrpseeClient = JsonrpseeClient::sora_default_url();
 <div style="break-before: page; page-break-before: always;"></div><h1 id="watch-for-runtime-upgrades"><a class="header" href="#watch-for-runtime-upgrades">Watch for runtime upgrades</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-code-examples"><a class="header" href="#libuptest-code-examples">libuptest code examples</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="connect-to-a-chain"><a class="header" href="#connect-to-a-chain">Connect to a chain</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="check-added-and-changed-storage-items-after-a-runtime-upgrade"><a class="header" href="#check-added-and-changed-storage-items-after-a-runtime-upgrade">Check added and changed storage items after a runtime upgrade</a></h1>
+<p>is a crucial part of doing runtime upgrades. Their are several ways to detect storage changes with Uptest.</p>
+<h3 id="the-simpliest-way-is-to-follow-our-code-example-upgrade_change_diff"><a class="header" href="#the-simpliest-way-is-to-follow-our-code-example-upgrade_change_diff">The simpliest way is to follow our code example <code>upgrade_change_diff</code>:</a></h3>
+<h3 id="spin-up-a-substrate-based-node"><a class="header" href="#spin-up-a-substrate-based-node">Spin up a substrate based node:</a></h3>
+<pre><code class="language-shell">git clone https://github.com/substrate-developer-hub/substrate-node-template
+cd substrate-node-template/ &amp;&amp; cargo build --release
+./target/release/node-template --dev --ws-external --
+</code></pre>
+<p><img src="code_samples/first_run.png" alt="Start a substrate node" title="Start a substrate based node" /></p>
+<h3 id="run-our-code-example"><a class="header" href="#run-our-code-example">Run our code example:</a></h3>
+<pre><code class="language-shell">$ git clone https://github.com/uptest-sc/uptest/ &amp;&amp; cd uptest
+$ cargo run -p uptest-examples --example upgrade_change_diff
+    Finished dev [unoptimized + debuginfo] target(s) in 0.26s
+     Running `target/debug/examples/upgrade_change_diff`
+Connected to: &quot;node-template&quot;  Runtime version: 106
+Waiting for custom event to be triggered
+</code></pre>
+<h3 id="make-changes-to-the-node-repo-and-change-spec_version"><a class="header" href="#make-changes-to-the-node-repo-and-change-spec_version">Make changes to the node repo and change spec_version:</a></h3>
+<p>Make the changes you wish to do, in this example we have changed one storage map and added a storage value to the default template module you can find in the substrate-node-template repo.<br />
+Compile the node with the saved changes and get the <code>target/release/wbuild/*.compressed.wasm</code> file.</p>
+<h3 id="submit-the-runtime-upgradein-our-example-with-the-sudo-key-and-polkadotjsapps-webui"><a class="header" href="#submit-the-runtime-upgradein-our-example-with-the-sudo-key-and-polkadotjsapps-webui">Submit the runtime upgrade(in our example with the Sudo key and polkadot.js.apps webui):</a></h3>
+<p><img src="code_samples/second_run.png" alt="polkadot.js apps" title="polkadot.js" /></p>
+<p>Head back to your terminal and you should see that we are able to detect that our custom event has been triggered and we should get the following output:</p>
+<pre><code>Event detected in block: 0xf28159f44e72b1859a1b5fb1ff210401605b100300ed53058b939ad2c817faf4
+Having a coffee break before next block...
+Scanning the new metadata for changes
+Runtime upgraded from version: 106 to new version: 107
+Changed StorageMap: &quot;SomeMapthree&quot; in Pallet: &quot;TemplateModule&quot; to the new type: Primitive(U32)
+Pallet: &quot;TemplateModule&quot; has added a StorageValue with the type: Primitive(Bool)
+</code></pre>
+<h3 id="external-links"><a class="header" href="#external-links">External links:</a></h3>
+<p><a href="https://github.com/substrate-developer-hub/substrate-node-template">https://github.com/substrate-developer-hub/substrate-node-template</a><br />
+<a href="https://github.com/uptest-sc/uptest">Uptest github</a></p>
 
                     </main>
 
