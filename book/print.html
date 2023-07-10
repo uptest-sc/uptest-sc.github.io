@@ -149,7 +149,43 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="my-first-chapter"><a class="header" href="#my-first-chapter">My First Chapter</a></h1>
+<p>Uptest(cli client) and Libuptest(core library) was created in order to make debugging of substrate based Runtime Upgrades easier.</p>
+<p>Uptest contains several useful features and modules that helps developers detect changes that took place before and after the runtime upgrade was pushed.</p>
+<h3 id="useful-links"><a class="header" href="#useful-links">Useful links:</a></h3>
+<p><a href="https://github.com/uptest-sc/uptest">Uptest github</a><br />
+<a href="https://github.com/apopiak/substrate-migrations">https://github.com/apopiak/substrate-migrations</a><br />
+<a href="https://github.com/paritytech/substrate/issues?q=label%3AE1-runtimemigration%20">Runtime migration issues for substrate</a><br />
+<a href="https://docs.rs/libuptest/0.1.1/libuptest/">doc.rs for Libuptest</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="install-and-utilize-uptest"><a class="header" href="#install-and-utilize-uptest">Install and utilize Uptest:</a></h1>
+<h2 id="libuptest-can-be-found-at-cratesio-and-github"><a class="header" href="#libuptest-can-be-found-at-cratesio-and-github">Libuptest can be found at crates.io and github:</a></h2>
+<pre><code class="language-shell">$ cargo new --bin try_uptest  
+$ cd try_uptest/
+$ cat rust-toolchain
+[toolchain]
+channel = &quot;nightly-2023-04-24&quot;
+targets = [&quot;wasm32-unknown-unknown&quot;]
+profile = &quot;default&quot;
+host = &quot;x86_64-unknown-linux-gnu&quot;
+$ cat Cargo.toml  
+[package]
+name = &quot;uptest-cli&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+[dependencies]
+libuptest = &quot;0.1.1&quot;
+</code></pre>
+<p>Note: Libuptest is currently only avaliable in the nightly edition, so you need to configure your rust-toolchain for that.</p>
+<h2 id="libuptest-feature-flags"><a class="header" href="#libuptest-feature-flags">Libuptest feature flags</a></h2>
+<p>We wanted to make uptest a minimal and stand-alone library so Libuptest comes with multiple feature flags that you can enable:</p>
+<h4 id="metadatadecode"><a class="header" href="#metadatadecode">metadatadecode</a></h4>
+<p>This feature flag is used for adding extrinsic decoding functionality to uptest. By enabling this flag you unlock the following functions:
+unctions with metadatadecode flag:<br />
+https://github.com/search?q=repo%3Auptest-sc%2Fuptest%20%23%5Bcfg(feature%20%3D%20%22metadatadecode%22)%5D&amp;type=code&quot;</p>
+<h4 id="subxt"><a class="header" href="#subxt">Subxt:</a></h4>
+<p>Feature flag not yet published.</p>
+<h4 id="all"><a class="header" href="#all">ALL</a></h4>
+<p>The &quot;ALL&quot; feature flag does exactly what the name entails. It enables all avaliable feature flags.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-jsonrpcclient"><a class="header" href="#libuptest-jsonrpcclient">Libuptest JsonRPCClient</a></h1>
 <p>Uptest use a modified version of <a href="https://github.com/paritytech/jsonrpsee/">Jsonrpsee</a> from parity to connect to a chain.<br />
 This makes uptest compatible with standard JsonRpsee syntax.</p>
