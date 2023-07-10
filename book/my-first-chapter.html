@@ -147,7 +147,36 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="my-first-chapter"><a class="header" href="#my-first-chapter">My First Chapter</a></h1>
+                        <h1 id="install-and-utilize-uptest"><a class="header" href="#install-and-utilize-uptest">Install and utilize Uptest:</a></h1>
+<h2 id="libuptest-can-be-found-at-cratesio-and-github"><a class="header" href="#libuptest-can-be-found-at-cratesio-and-github">Libuptest can be found at crates.io and github:</a></h2>
+<pre><code class="language-shell">$ cargo new --bin try_uptest  
+$ cd try_uptest/
+$ cat rust-toolchain
+[toolchain]
+channel = &quot;nightly-2023-04-24&quot;
+targets = [&quot;wasm32-unknown-unknown&quot;]
+profile = &quot;default&quot;
+host = &quot;x86_64-unknown-linux-gnu&quot;
+$ cat Cargo.toml  
+[package]
+name = &quot;uptest-cli&quot;
+version = &quot;0.1.0&quot;
+edition = &quot;2021&quot;
+
+[dependencies]
+libuptest = &quot;0.1.1&quot;
+</code></pre>
+<p>Note: Libuptest is currently only avaliable in the nightly edition, so you need to configure your rust-toolchain for that.</p>
+<h2 id="libuptest-feature-flags"><a class="header" href="#libuptest-feature-flags">Libuptest feature flags</a></h2>
+<p>We wanted to make uptest a minimal and stand-alone library so Libuptest comes with multiple feature flags that you can enable:</p>
+<h4 id="metadatadecode"><a class="header" href="#metadatadecode">metadatadecode</a></h4>
+<p>This feature flag is used for adding extrinsic decoding functionality to uptest. By enabling this flag you unlock the following functions:
+unctions with metadatadecode flag:<br />
+https://github.com/search?q=repo%3Auptest-sc%2Fuptest%20%23%5Bcfg(feature%20%3D%20%22metadatadecode%22)%5D&amp;type=code&quot;</p>
+<h4 id="subxt"><a class="header" href="#subxt">Subxt:</a></h4>
+<p>Feature flag not yet published.</p>
+<h4 id="all"><a class="header" href="#all">ALL</a></h4>
+<p>The &quot;ALL&quot; feature flag does exactly what the name entails. It enables all avaliable feature flags.</p>
 
                     </main>
 
