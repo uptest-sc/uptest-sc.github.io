@@ -10,6 +10,5 @@
 - [Uptest command line tool](cli/README.md)   
     - [Watch for runtime upgrades](cli/watch_runtime_upgrade.md)   
 - [Libuptest code examples](code_samples/README.md)   
-    - [Connect to a chain](code_samples/connect.md)  
     - [Check added and changed storage items after a runtime upgrade](code_samples/upgrade_change_diff.md)
     - [Using Libuptest with Subxt](code_samples/subxt.md)

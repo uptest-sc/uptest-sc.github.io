@@ -41,6 +41,31 @@ let sora_client: JsonrpseeClient = JsonrpseeClient::sora_default_url();
 use libuptest::jsonrpseeclient::subscription::{HandleSubscription, Request};
 use libuptest::jsonrpseeclient::subscription::Subscribe;
 
+
+...
+
+   /// create a subscription socket to chain_subscribeFinalizedHeads
+   println!("Subscribing to latest finalized blocks");
+    let mut subscrib: SubscriptionWrapper<Header> = client
+        .clone()
+        .subscribe::<Header>(
+            "chain_subscribeFinalizedHeads",
+            RpcParams::new(),
+            "chain_unsubscribeFinalizedHeads",
+        )?;
+
+  for _ in 0..3 { // loop
+        let tmp_client = JsonrpseeClient::polkadot_default_url().unwrap();
+        let nextone = subscrib.next();// get the next Finalized block number
+        let blocknr = nextone.unwrap().unwrap().number;
+        println!("Latest finalized block: {:?}", blocknr);
+        let blockhash: H256 = blocknumber_to_blockhash(tmp_client.clone(), blocknr.clone()) // convert blocknr to blockhash with libuptest
+            .await?;
+	}
+// unsubscribe
+   let _ = subscrib.unsubscribe();
+    Ok(())
+
 ```
 
 

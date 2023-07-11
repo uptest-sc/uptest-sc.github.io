@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html" class="active"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/connect.html"><strong aria-hidden="true">3.1.</strong> Connect to a chain</a></li><li class="chapter-item expanded "><a href="../code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.2.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="../code_samples/subxt.html"><strong aria-hidden="true">3.3.</strong> Using Libuptest with Subxt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html" class="active"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="../code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -182,6 +182,31 @@ let sora_client: JsonrpseeClient = JsonrpseeClient::sora_default_url();
 </span><span class="boring">fn main() {
 </span>use libuptest::jsonrpseeclient::subscription::{HandleSubscription, Request};
 use libuptest::jsonrpseeclient::subscription::Subscribe;
+
+
+...
+
+   /// create a subscription socket to chain_subscribeFinalizedHeads
+   println!(&quot;Subscribing to latest finalized blocks&quot;);
+    let mut subscrib: SubscriptionWrapper&lt;Header&gt; = client
+        .clone()
+        .subscribe::&lt;Header&gt;(
+            &quot;chain_subscribeFinalizedHeads&quot;,
+            RpcParams::new(),
+            &quot;chain_unsubscribeFinalizedHeads&quot;,
+        )?;
+
+  for _ in 0..3 { // loop
+        let tmp_client = JsonrpseeClient::polkadot_default_url().unwrap();
+        let nextone = subscrib.next();// get the next Finalized block number
+        let blocknr = nextone.unwrap().unwrap().number;
+        println!(&quot;Latest finalized block: {:?}&quot;, blocknr);
+        let blockhash: H256 = blocknumber_to_blockhash(tmp_client.clone(), blocknr.clone()) // convert blocknr to blockhash with libuptest
+            .await?;
+	}
+// unsubscribe
+   let _ = subscrib.unsubscribe();
+    Ok(())
 
 <span class="boring">}</span></code></pre></pre>
 
