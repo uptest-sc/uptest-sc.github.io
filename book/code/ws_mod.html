@@ -148,6 +148,167 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="libuptest-ws_mod-helper"><a class="header" href="#libuptest-ws_mod-helper">Libuptest ws_mod helper</a></h1>
+<p><code>use libuptest::ws_mod</code> is a collection of seperate functions that utilize the ws socket(Default port 9944) to talk directly to the chain and then render the results.</p>
+<hr />
+<p>Name of Function:<br />
+event_watch<br />
+Function description:<br />
+The event_watch function subscribes to the latest finalized blocks, every time their is a new block(normally every 6 seconds), the function will look at the event's triggered in the block and match that against a user defined event. If it finds the event in a block it will return the H256 block hash of that block. Select how many blocks to wait for with the block_limit parameter.</p>
+<p>inputs:</p>
+<ul>
+<li>client: JsonrpseeClient</li>
+<li>event: event_summary</li>
+<li>block_limit: u32</li>
+</ul>
+<p>outputs:</p>
+<ul>
+<li>Result&lt;H256, crate::error::Error&gt;</li>
+</ul>
+<p>Used in code example:
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/upgrade_change_diff.rs">upgrade_change_diff</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/schedule_check.rs">schedule_check</a></p>
+<p>Special feature flag needed:
+Yes - feature = &quot;metadatadecode&quot;)</p>
+<hr />
+<p>Name of Function:
+get_runtime_version</p>
+<p>Function description:
+Queries the <code>state.getRuntimeVersion</code> endpoint in order to get the runtime version information.</p>
+<p>inputs:
+client: JsonrpseeClient,
+outputs:
+RuntimeVersion Struct</p>
+<p>Used in code example:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/upgrade_change_diff.rs">upgrade_change_diff</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/detect_runtime_upgrade.rs">detect_runtime_upgrade</a></p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+get_decoded_extrinsics_from_blockhash</p>
+<p>Function description:
+Takes in a blockhash as input and decodes the extriniscs into the nice human readable format with event_summary struct.</p>
+<p>inputs:</p>
+<ul>
+<li>blockhash: H256,</li>
+<li>metadatablob: Vec<u8>,</li>
+<li>client: JsonrpseeClient,</li>
+</ul>
+<p>outputs:</p>
+<ul>
+<li>Result&lt;Vec&lt;event_summary&gt;</li>
+</ul>
+<p>Used in code example:</p>
+<p>Special feature flag needed:
+Yes - feature = &quot;metadatadecode&quot;</p>
+<hr />
+<p>Name of Function:
+get_block_events
+Function description:
+Return the PreBlock of the block from the block's hash.<br />
+inputs:
+blockhash: H256,
+client: JsonrpseeClient,</p>
+<p>outputs:
+Result&lt;PreBlock, crate::error::Error&gt;</p>
+<p>Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+get_latest_finalized_head
+Function description:
+Get the latest finalized block and return it as a H256 hash.</p>
+<p>inputs:
+client: JsonrpseeClient,
+outputs:
+Result&lt;H256, crate::error::Error&gt;
+Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+get_metadata_version</p>
+<p>Function description:
+Returns the metadata version(1-14)</p>
+<p>inputs:
+client: JsonrpseeClient
+outputs:
+u8
+Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:<br />
+blockhash_to_block<br />
+Function description:<br />
+Convert a block_hash in H256 format to a <a href="https://docs.rs/libuptest/0.1.1/libuptest/types/struct.PreBlock.html">Preblock</a></p>
+<p>inputs:
+client: JsonrpseeClient,
+block_hash: H256,</p>
+<p>outputs:
+Preblock</p>
+<p>Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+blocknumber_to_blockhash</p>
+<p>Function description:
+Convert the block number to a block hash, function queries the chain's chain.getBlockHash endpoint.</p>
+<p>inputs:
+client: JsonrpseeClient,
+block_nr: String,</p>
+<p>outputs:
+Result&lt;H256, crate::error::Error&gt;</p>
+<p>Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+get_raw_metadata</p>
+<p>Function description:
+The the chain's metadata in a raw format(Vector of u8's).</p>
+<p>inputs:
+client: JsonrpseeClient,</p>
+<p>outputs:
+anyhow::Result&lt;Vec<u8>, crate::error::Error&gt;
+Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Name of Function:
+get_metadata_version</p>
+<p>Function description:
+get the metadata version of chain X</p>
+<p>Function description:</p>
+<p>inputs:
+client: JsonrpseeClient,</p>
+<p>outputs:
+Result&lt;u8, crate::error::Error&gt;</p>
+<p>Used in code example:</p>
+<p>Special feature flag needed:
+No</p>
+<hr />
+<p>Add your own custom rpc/ws functions:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>libuptest/src/ws_mod.rs:
+
+
+
+#[maybe_async::maybe_async(?Send)] /// use maybe-async crate to make the async code a bit easier to work with 
+pub async fn get_custom_thing(
+    client: JsonrpseeClient,
+) -&gt; anyhow::Result&lt;MYTYPE, crate::error::Error&gt; { // replace MYTYPE with the output you wish to get
+    let hex_data: String = client
+        .request(&quot;chain_getFinalizedHead&quot;, RpcParams::new())// replace chain_getFinalizedHead with module_function, if an input is required, pass it along with rpc_params![input1, input2] instead of RpcParamns::new(), which returns an empty list
+        .await?;
+    let myoutput: MYTYPE = H256::from_str(&amp;hex_data.as_str())?; // make sure your type matches with the response output, serde comes in very handy for building structs based on the returned json rpc response 
+    Ok(myoutput)
+}
+
+<span class="boring">}</span></code></pre></pre>
 
                     </main>
 
