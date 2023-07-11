@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades and custom events</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -256,6 +256,101 @@ use libuptest::jsonrpseeclient::subscription::Subscribe;
 
 <span class="boring">}</span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-types"><a class="header" href="#libuptest-types">Libuptest types</a></h1>
+<p>Libuptest comes prepackaged with several different types that will make debugging a bit easier.</p>
+<p>Name:<br />
+H256</p>
+<p>Description:<br />
+A H256 hash from <a href="https://crates.io/crates/fixed-hash">fixed-hash</a>, used as default blockhash.<br />
+Manually set a block hash:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let blockhash: H256 = H256::from_str(&quot;0x89a5dde6705d345117f442dfacf02f4a59bf5cea3ab713a5c07fc4cd78be3a31&quot;).unwrap();//get_latest_finalized_head(client.clone()).await.unwrap();
+<span class="boring">}</span></code></pre></pre>
+<p>Used in code examples:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/detect_runtime_upgrade.rs">detect_runtime_upgrade</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/get_block_events.rs">get_block_event</a></p>
+<hr />
+<p>Name: 
+Header struct<br />
+Description:
+Block Header containing the block nr</p>
+<p>Used in code examples:
+Define a block header standard that subscribe to finalized heads returns:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/get_block_events.rs">get_block_events</a></p>
+<hr />
+<p>Name:<br />
+event_summary struct</p>
+<p>Description:<br />
+event_summary is an easy high level way for developers to define a custom event.<br />
+Create a generic event in the form of:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let myevent: event_summary = event_summary {
+	pub pallet_name: &quot;Sudo&quot;.to_string(),
+	pub pallet_method: &quot;secret_function&quot;.to_string(),
+ }
+<span class="boring">}</span></code></pre></pre>
+<p>Used in code examples:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/decode_extrinsics.rs">decode_extrinsics</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/get_block_events.rs">get_block_events</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/schedule_check.rs">schedule_check</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/upgrade_change_diff.rs">upgrade_change_diff</a></p>
+<hr />
+<p>Name:<br />
+storage_types</p>
+<p>Description:<br />
+enum for defining what type of storage entry it is, is it a StorageValue, StorageMap or Unknown type?</p>
+<p>Used in code examples:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/libuptest/src/pallet_storage_parse.rs">pallet_storage_parse module</a></p>
+<hr />
+<p>Name:
+Block struct</p>
+<p>Description:<br />
+Generic substrate sp-runtime block containing header and extrinsics.</p>
+<p>Used in code examples:</p>
+<hr />
+<p>Name:
+PreBlock struct </p>
+<p>Description:
+A pre-block containing a block and justifications.</p>
+<p>Used in code examples:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/block_events.rs">block_events</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/detect_runtime_upgrade.rs">detect_runtime_upgrade</a></p>
+<hr />
+<p>Name:<br />
+generic_block
+Description:<br />
+A generic block format containing a Header and a Vector of strings.</p>
+<p>Used in code examples:</p>
+<hr />
+<p>Name:<br />
+RuntimeVersionEvent</p>
+<p>Description:<br />
+Runtime Version Event struct containing a spec version number(u32).</p>
+<p>Used in code examples:</p>
+<hr />
+<p>Name:
+RuntimeEvent</p>
+<p>Description:<br />
+Runtime event, returning a RuntimeVersionEvent if it has a value, if not it returns an error</p>
+<p>Used in code examples:</p>
+<hr />
+<p>Name:<br />
+storage_map_info struct </p>
+<p>Description: </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>    pub pallet_name: String,
+    pub storage_item_name: String, // name of storagemap
+    pub type_id: u32,              // take the type id and query the type_id to type function
+    pub raw_type: desub_current::scale_info::TypeDef&lt;PortableForm&gt;,
+    pub storage_type: storage_types,
+<span class="boring">}</span></code></pre></pre>
+<p>Used in code examples:<br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/upgrade_change_diff.rs">upgrade_change_diff</a><br />
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/get_pallet_storagemaps_storagevalues.rs">get_pallet_storagemaps_storagevalues</a></p>
+<h3 id="external-links"><a class="header" href="#external-links">External links:</a></h3>
+<p><a href="https://docs.rs/libuptest/0.1.1/libuptest/types/index.html">Libuptest docs.rs type documentation</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-ws_mod-helper"><a class="header" href="#libuptest-ws_mod-helper">Libuptest ws_mod helper</a></h1>
 <p><code>use libuptest::ws_mod</code> is a collection of seperate functions that utilize the ws socket(Default port 9944) to talk directly to the chain and then render the results.</p>
 <hr />
@@ -467,7 +562,7 @@ Runtime upgraded from version: 106 to new version: 107
 Changed StorageMap: &quot;SomeMapthree&quot; in Pallet: &quot;TemplateModule&quot; to the new type: Primitive(U32)
 Pallet: &quot;TemplateModule&quot; has added a StorageValue with the type: Primitive(Bool)
 </code></pre>
-<h3 id="external-links"><a class="header" href="#external-links">External links:</a></h3>
+<h3 id="external-links-1"><a class="header" href="#external-links-1">External links:</a></h3>
 <p><a href="https://github.com/substrate-developer-hub/substrate-node-template">https://github.com/substrate-developer-hub/substrate-node-template</a><br />
 <a href="https://github.com/uptest-sc/uptest">Uptest github</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="using-libuptest-with-subxt"><a class="header" href="#using-libuptest-with-subxt">Using Libuptest with Subxt</a></h1>
@@ -559,7 +654,7 @@ async fn send_tx() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 }
 
 </code></pre></pre>
-<h3 id="external-links-1"><a class="header" href="#external-links-1">External links:</a></h3>
+<h3 id="external-links-2"><a class="header" href="#external-links-2">External links:</a></h3>
 <p><a href="https://github.com/paritytech/subxt">https://github.com/paritytech/subxt</a><br />
 <a href="https://docs.rs/subxt/latest/subxt/book/index.html">Subxt Guide</a></p>
 
