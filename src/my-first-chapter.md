@@ -40,4 +40,4 @@ The "ALL" feature flag does exactly what the name entails. It enables all avalia
 
 
 
-
+[All current feature flags on doc.rs](https://docs.rs/crate/libuptest/0.1.1/features)  
