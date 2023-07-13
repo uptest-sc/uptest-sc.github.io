@@ -148,6 +148,44 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="libuptest-decoding-extrinsics"><a class="header" href="#libuptest-decoding-extrinsics">Libuptest Decoding Extrinsics</a></h1>
+<p>When we query the chain for data we will get the raw data as a response. In order to decode this to a human readable format we need to know the metadata version and decode the hex string together with the raw metadata.</p>
+<p>The data is encoded in a format called SCALE (Simple Concatenated Aggregate Little-Endian). The encodment will be a bit different depending on your metadata version(latest and most widely used is V14). </p>
+<h3 id="code-sample"><a class="header" href="#code-sample">Code sample:</a></h3>
+<pre><pre class="playground"><code class="language-rust">use libuptest::decode_extrinsic::decode_extrinsic_hex_string;
+use libuptest::jsonrpseeclient::JsonrpseeClient;
+use libuptest::types::event_summary;
+use libuptest::ws_mod::get_raw_metadata;
+
+#[tokio::main]
+async fn main() -&gt; anyhow::Result&lt;()&gt; {
+    // define the raw extrinsic hex string we get from the chain, in this example its a simple time stamp
+    let raw_extrinsic = &quot;0x280403000ba0ada8438801&quot;; // time stamp extrinsic taken from random polkadot block
+    println!(&quot;Raw extrinsic value: {raw_extrinsic:?}&quot;);
+    println!(&quot;Downloading metadata&quot;);
+    // download the metadata in a raw u8 Vec 
+    let metadata: Vec&lt;u8&gt; = get_raw_metadata(JsonrpseeClient::polkadot_default_url().unwrap())
+        .await
+        .unwrap(); // yolo
+    println!(&quot;Metadata downloaded ok&quot;);
+    // once we have the metadata downloaded we want to take that plus our raw extrinsic string and feed it into the decode_extrinsic_hex_string function from Uptest   
+    let decoded_output = decode_extrinsic_hex_string(raw_extrinsic, &amp;metadata);
+    // use the decoded output and create an event struct from it
+    let single_event: event_summary = event_summary {
+        pallet_name: decoded_output.call_data.pallet_name.to_string(),
+        pallet_method: decoded_output.call_data.ty.name().to_string(),
+    };
+    let string_vec_events: Vec&lt;event_summary&gt; = vec![single_event];
+    // all good, we could now view the data
+    println!(
+        &quot;Decoded output as:  {:?} &quot;,
+        string_vec_events[0].pallet_method
+    );
+    Ok(())
+}
+</code></pre></pre>
+<h4 id="external-links"><a class="header" href="#external-links">External links:</a></h4>
+<p><a href="https://docs.substrate.io/reference/scale-codec/">docs.substrate.io Scale Encoding</a><br />
+<a href="https://github.com/uptest-sc/uptest-sc.github.io/blob/main/markdown/metadata_stats.md">Uptest metadata version scanning survey</a></p>
 
                     </main>
 

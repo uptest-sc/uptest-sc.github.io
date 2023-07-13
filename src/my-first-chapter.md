@@ -45,7 +45,6 @@ The "ALL" feature flag does exactly what the name entails. It enables all avalia
 
 #### Limitations of uptest:  
 *  Currently only supports metadata version 14 format  
-*  Does not properly render the StorageValue's raw type's, storagemap type works doe       
 *  Is running nightly rust and contains several unwrap's  
 
 

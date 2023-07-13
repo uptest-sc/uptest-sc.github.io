@@ -147,7 +147,47 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="watch-for-runtime-upgrades"><a class="header" href="#watch-for-runtime-upgrades">Watch for runtime upgrades</a></h1>
+                        <h1 id="watch-for-runtime-upgrades-and-custom-events"><a class="header" href="#watch-for-runtime-upgrades-and-custom-events">Watch for runtime upgrades and custom events</a></h1>
+<p>With uptest cli tool we can subscribe to the latest blocks and check them automatically for a certain event to be triggered. Once uptest finds our user defined event it will return the hash of the block that contains the event.</p>
+<h4 id="create-a-custom-event-with-event_summary"><a class="header" href="#create-a-custom-event-with-event_summary">Create a custom event with event_summary:</a></h4>
+<pre><code>let detect_event = event_summary {
+        pallet_name: &quot;system&quot;.to_string(),
+        pallet_method: &quot;setCode&quot;.to_string(),
+    }; 
+</code></pre>
+<h4 id="command-line-client-example"><a class="header" href="#command-line-client-example">Command line client example:</a></h4>
+<pre><code>./target/release/uptest -s Sudo sudo_unchecked_weight
+Uptest command line tool
+Matches: Some(&quot;pallet-method-sub&quot;)
+Subscribing to Chain X, Metadata Version Y
+Connecting to chain..
+Looking for Pallet: &quot;Sudo&quot;
+Checking block #&quot;0x0&quot;
+Got block events... Decoding it..
+Block: 0xab80e34ccc0b1201206b599b2d4e7a455afb9535287a8bfcf209cfb3db1503ca does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x7&quot;
+Got block events... Decoding it..
+Block: 0xf455c0485a2b6256b7f1314b1822a8502710e7d2cd710007938f3fc1509dc7ab does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x8&quot;
+Got block events... Decoding it..
+Block: 0x75eaf2d2e31cbb8f09706b4341e18c478eb4fc27c30b2060c6c854cfd153f376 does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x9&quot;
+Got block events... Decoding it..
+Block: 0x365275bbe42360026843f76d52945c5f4a1f476820a0212630eead7324f634b2 contains event
+thread 'main' panicked at 'Exiting..', src/helper.rs:129:17
+</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>./target/release/uptest -s --help
+Uptest command line tool
+Usage example: uptest -s Balance transfer 
+uptest -s pallet_name pallet_method
+$ ./target/release/uptest -s balance transfer   
+<span class="boring">}</span></code></pre></pre>
+<p>Note:
+The -s flag is case sensitive.</p>
+<h4 id="example-from-code-examples"><a class="header" href="#example-from-code-examples">Example from code examples:</a></h4>
+<p><a href="https://uptest-sc.github.io/code_samples/upgrade_change_diff.html">https://uptest-sc.github.io/code_samples/upgrade_change_diff.html</a></p>
 
                     </main>
 
