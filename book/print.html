@@ -190,7 +190,6 @@ https://github.com/search?q=repo%3Auptest-sc%2Fuptest%20%23%5Bcfg(feature%20%3D%
 <h4 id="limitations-of-uptest"><a class="header" href="#limitations-of-uptest">Limitations of uptest:</a></h4>
 <ul>
 <li>Currently only supports metadata version 14 format</li>
-<li>Does not properly render the StorageValue's raw type's, storagemap type works doe</li>
 <li>Is running nightly rust and contains several unwrap's</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-jsonrpcclient"><a class="header" href="#libuptest-jsonrpcclient">Libuptest JsonRPCClient</a></h1>
@@ -514,6 +513,44 @@ pub async fn get_custom_thing(
 
 <span class="boring">}</span></code></pre></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-decoding-extrinsics"><a class="header" href="#libuptest-decoding-extrinsics">Libuptest Decoding Extrinsics</a></h1>
+<p>When we query the chain for data we will get the raw data as a response. In order to decode this to a human readable format we need to know the metadata version and decode the hex string together with the raw metadata.</p>
+<p>The data is encoded in a format called SCALE (Simple Concatenated Aggregate Little-Endian). The encodment will be a bit different depending on your metadata version(latest and most widely used is V14). </p>
+<h3 id="code-sample"><a class="header" href="#code-sample">Code sample:</a></h3>
+<pre><pre class="playground"><code class="language-rust">use libuptest::decode_extrinsic::decode_extrinsic_hex_string;
+use libuptest::jsonrpseeclient::JsonrpseeClient;
+use libuptest::types::event_summary;
+use libuptest::ws_mod::get_raw_metadata;
+
+#[tokio::main]
+async fn main() -&gt; anyhow::Result&lt;()&gt; {
+    // define the raw extrinsic hex string we get from the chain, in this example its a simple time stamp
+    let raw_extrinsic = &quot;0x280403000ba0ada8438801&quot;; // time stamp extrinsic taken from random polkadot block
+    println!(&quot;Raw extrinsic value: {raw_extrinsic:?}&quot;);
+    println!(&quot;Downloading metadata&quot;);
+    // download the metadata in a raw u8 Vec 
+    let metadata: Vec&lt;u8&gt; = get_raw_metadata(JsonrpseeClient::polkadot_default_url().unwrap())
+        .await
+        .unwrap(); // yolo
+    println!(&quot;Metadata downloaded ok&quot;);
+    // once we have the metadata downloaded we want to take that plus our raw extrinsic string and feed it into the decode_extrinsic_hex_string function from Uptest   
+    let decoded_output = decode_extrinsic_hex_string(raw_extrinsic, &amp;metadata);
+    // use the decoded output and create an event struct from it
+    let single_event: event_summary = event_summary {
+        pallet_name: decoded_output.call_data.pallet_name.to_string(),
+        pallet_method: decoded_output.call_data.ty.name().to_string(),
+    };
+    let string_vec_events: Vec&lt;event_summary&gt; = vec![single_event];
+    // all good, we could now view the data
+    println!(
+        &quot;Decoded output as:  {:?} &quot;,
+        string_vec_events[0].pallet_method
+    );
+    Ok(())
+}
+</code></pre></pre>
+<h4 id="external-links-1"><a class="header" href="#external-links-1">External links:</a></h4>
+<p><a href="https://docs.substrate.io/reference/scale-codec/">docs.substrate.io Scale Encoding</a><br />
+<a href="https://github.com/uptest-sc/uptest-sc.github.io/blob/main/markdown/metadata_stats.md">Uptest metadata version scanning survey</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="uptest-command-line-tool"><a class="header" href="#uptest-command-line-tool">Uptest command line tool</a></h1>
 <blockquote>
 <p>Inspiration was taken from <a href="https://en.wikipedia.org/wiki/CURL">Daniel Stenberg's Curl</a> in order to create a command line client that would be flexible and easy for the end user to utilize to send and debug user-defined payloads. Just like Curl we also have Uptest the command line client and Libuptest as the core library like Libcurl.</p>
@@ -525,13 +562,77 @@ $ cargo build --release
 $ ./target/release/uptest  
 </code></pre>
 <h3 id="mandoc-for-uptest-cli"><a class="header" href="#mandoc-for-uptest-cli">Mandoc for Uptest-cli</a></h3>
-<p>Uptest client is built with <a href="cli/">clap</a> and comes prepackaged with clap-mangen. Building uptest manually with cargo will output a mandoc file in the <code>target/man/uptest.man</code> location. Copy it to your mandoc directory which is different depending on what operating system you run.</p>
+<p><img src="cli/uptest_man.png" alt="Uptest man page" /><br />
+Uptest client is built with <a href="cli/">clap</a> and comes prepackaged with clap-mangen. Building uptest manually with cargo will output a mandoc file in the <code>target/man/uptest.man</code> location. Copy it to your mandoc directory which is different depending on what operating system you run.</p>
+<h4 id="install-uptest-man-on-debian"><a class="header" href="#install-uptest-man-on-debian">Install uptest .man on debian:</a></h4>
+<p>Step 1:<br />
+Run mandb to display the man directory path.</p>
+<pre><code>$ mandb
+Purging old database entries in /home/user/.nvm/versions/node/v17.8.0/share/man...
+Processing manual pages under /home/user/.nvm/versions/node/v17.8.0/share/man...
+Processing manual pages under /home/user/.nvm/versions/node/v17.8.0/share/man/cat1...
+0 man subdirectories contained newer manual pages.
+0 manual pages were added.
+0 stray cats were added.
+0 old database entries were purged.
+
+</code></pre>
+<p>Copy over the compiled man pages that was made during the build to your man page path:</p>
+<pre><code>$ cp target/release/man/uptest.man  /home/user/.nvm/versions/node/v17.8.0/share/man/uptest.1 
+</code></pre>
+<p>Rebuild the man cache:</p>
+<pre><code>$ mandb  
+</code></pre>
+<p>If all is well we can now read uptest documentation with <code>man</code>:</p>
+<p><code>$ man uptest</code></p>
 <p>Code source:<br />
 <a href="https://github.com/uptest-sc/uptest/blob/0ba314e0316b57c4999660db378e1fd71bc6f39c/build.rs#L22">uptest cli build script</a></p>
 <p><a href="https://man.openbsd.org/">OpenBSD's mandoc search</a><br />
 <a href="https://manpages.debian.org/bookworm/cargo/cargo.1.en.html">Debian mandoc search</a></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="watch-for-runtime-upgrades"><a class="header" href="#watch-for-runtime-upgrades">Watch for runtime upgrades</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-code-examples"><a class="header" href="#libuptest-code-examples">libuptest code examples</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="watch-for-runtime-upgrades-and-custom-events"><a class="header" href="#watch-for-runtime-upgrades-and-custom-events">Watch for runtime upgrades and custom events</a></h1>
+<p>With uptest cli tool we can subscribe to the latest blocks and check them automatically for a certain event to be triggered. Once uptest finds our user defined event it will return the hash of the block that contains the event.</p>
+<h4 id="create-a-custom-event-with-event_summary"><a class="header" href="#create-a-custom-event-with-event_summary">Create a custom event with event_summary:</a></h4>
+<pre><code>let detect_event = event_summary {
+        pallet_name: &quot;system&quot;.to_string(),
+        pallet_method: &quot;setCode&quot;.to_string(),
+    }; 
+</code></pre>
+<h4 id="command-line-client-example"><a class="header" href="#command-line-client-example">Command line client example:</a></h4>
+<pre><code>./target/release/uptest -s Sudo sudo_unchecked_weight
+Uptest command line tool
+Matches: Some(&quot;pallet-method-sub&quot;)
+Subscribing to Chain X, Metadata Version Y
+Connecting to chain..
+Looking for Pallet: &quot;Sudo&quot;
+Checking block #&quot;0x0&quot;
+Got block events... Decoding it..
+Block: 0xab80e34ccc0b1201206b599b2d4e7a455afb9535287a8bfcf209cfb3db1503ca does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x7&quot;
+Got block events... Decoding it..
+Block: 0xf455c0485a2b6256b7f1314b1822a8502710e7d2cd710007938f3fc1509dc7ab does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x8&quot;
+Got block events... Decoding it..
+Block: 0x75eaf2d2e31cbb8f09706b4341e18c478eb4fc27c30b2060c6c854cfd153f376 does not contain Pallet: &quot;Sudo&quot; with method: &quot;sudo_unchecked_weight&quot;
+Checking block #&quot;0x9&quot;
+Got block events... Decoding it..
+Block: 0x365275bbe42360026843f76d52945c5f4a1f476820a0212630eead7324f634b2 contains event
+thread 'main' panicked at 'Exiting..', src/helper.rs:129:17
+</code></pre>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>./target/release/uptest -s --help
+Uptest command line tool
+Usage example: uptest -s Balance transfer 
+uptest -s pallet_name pallet_method
+$ ./target/release/uptest -s balance transfer   
+<span class="boring">}</span></code></pre></pre>
+<p>Note:
+The -s flag is case sensitive.</p>
+<h4 id="example-from-code-examples"><a class="header" href="#example-from-code-examples">Example from code examples:</a></h4>
+<p><a href="https://uptest-sc.github.io/code_samples/upgrade_change_diff.html">https://uptest-sc.github.io/code_samples/upgrade_change_diff.html</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-code-examples"><a class="header" href="#libuptest-code-examples">Libuptest code examples</a></h1>
+<p>Libuptest comes with multiple code examples. See the full list here:<br />
+<a href="https://github.com/uptest-sc/uptest/tree/main/examples/examples">https://github.com/uptest-sc/uptest/tree/main/examples/examples</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="check-added-and-changed-storage-items-after-a-runtime-upgrade"><a class="header" href="#check-added-and-changed-storage-items-after-a-runtime-upgrade">Check added and changed storage items after a runtime upgrade</a></h1>
 <p>is a crucial part of doing runtime upgrades. Their are several ways to detect storage changes with Uptest.</p>
 <h3 id="the-simpliest-way-is-to-follow-our-code-example-upgrade_change_diff"><a class="header" href="#the-simpliest-way-is-to-follow-our-code-example-upgrade_change_diff">The simpliest way is to follow our code example <code>upgrade_change_diff</code>:</a></h3>
@@ -562,7 +663,7 @@ Runtime upgraded from version: 106 to new version: 107
 Changed StorageMap: &quot;SomeMapthree&quot; in Pallet: &quot;TemplateModule&quot; to the new type: Primitive(U32)
 Pallet: &quot;TemplateModule&quot; has added a StorageValue with the type: Primitive(Bool)
 </code></pre>
-<h3 id="external-links-1"><a class="header" href="#external-links-1">External links:</a></h3>
+<h3 id="external-links-2"><a class="header" href="#external-links-2">External links:</a></h3>
 <p><a href="https://github.com/substrate-developer-hub/substrate-node-template">https://github.com/substrate-developer-hub/substrate-node-template</a><br />
 <a href="https://github.com/uptest-sc/uptest">Uptest github</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="using-libuptest-with-subxt"><a class="header" href="#using-libuptest-with-subxt">Using Libuptest with Subxt</a></h1>
@@ -654,7 +755,7 @@ async fn send_tx() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 }
 
 </code></pre></pre>
-<h3 id="external-links-2"><a class="header" href="#external-links-2">External links:</a></h3>
+<h3 id="external-links-3"><a class="header" href="#external-links-3">External links:</a></h3>
 <p><a href="https://github.com/paritytech/subxt">https://github.com/paritytech/subxt</a><br />
 <a href="https://docs.rs/subxt/latest/subxt/book/index.html">Subxt Guide</a></p>
 

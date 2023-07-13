@@ -158,7 +158,29 @@ $ cargo build --release
 $ ./target/release/uptest  
 </code></pre>
 <h3 id="mandoc-for-uptest-cli"><a class="header" href="#mandoc-for-uptest-cli">Mandoc for Uptest-cli</a></h3>
-<p>Uptest client is built with <a href="">clap</a> and comes prepackaged with clap-mangen. Building uptest manually with cargo will output a mandoc file in the <code>target/man/uptest.man</code> location. Copy it to your mandoc directory which is different depending on what operating system you run.</p>
+<p><img src="uptest_man.png" alt="Uptest man page" /><br />
+Uptest client is built with <a href="">clap</a> and comes prepackaged with clap-mangen. Building uptest manually with cargo will output a mandoc file in the <code>target/man/uptest.man</code> location. Copy it to your mandoc directory which is different depending on what operating system you run.</p>
+<h4 id="install-uptest-man-on-debian"><a class="header" href="#install-uptest-man-on-debian">Install uptest .man on debian:</a></h4>
+<p>Step 1:<br />
+Run mandb to display the man directory path.</p>
+<pre><code>$ mandb
+Purging old database entries in /home/user/.nvm/versions/node/v17.8.0/share/man...
+Processing manual pages under /home/user/.nvm/versions/node/v17.8.0/share/man...
+Processing manual pages under /home/user/.nvm/versions/node/v17.8.0/share/man/cat1...
+0 man subdirectories contained newer manual pages.
+0 manual pages were added.
+0 stray cats were added.
+0 old database entries were purged.
+
+</code></pre>
+<p>Copy over the compiled man pages that was made during the build to your man page path:</p>
+<pre><code>$ cp target/release/man/uptest.man  /home/user/.nvm/versions/node/v17.8.0/share/man/uptest.1 
+</code></pre>
+<p>Rebuild the man cache:</p>
+<pre><code>$ mandb  
+</code></pre>
+<p>If all is well we can now read uptest documentation with <code>man</code>:</p>
+<p><code>$ man uptest</code></p>
 <p>Code source:<br />
 <a href="https://github.com/uptest-sc/uptest/blob/0ba314e0316b57c4999660db378e1fd71bc6f39c/build.rs#L22">uptest cli build script</a></p>
 <p><a href="https://man.openbsd.org/">OpenBSD's mandoc search</a><br />
