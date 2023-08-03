@@ -11,4 +11,6 @@ Uptest contains several useful features and modules that helps developers detect
 [doc.rs for Libuptest](https://docs.rs/libuptest/0.1.1/libuptest/)
 
 
-
+### Contribute:  
+If you want to modify or contribute to this documentation, you can do so by submitting a pull request to:   
+[https://github.com/uptest-sc/uptest-sc.github.io](https://github.com/uptest-sc/uptest-sc.github.io)  
