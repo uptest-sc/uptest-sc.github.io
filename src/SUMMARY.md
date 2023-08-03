@@ -15,6 +15,7 @@
     - [Using Libuptest with Subxt](code_samples/subxt.md)
 - [Libuptest in Action](action/readme.md)  
     - [Tutorial #1 preventing breaking upgrades](action/tutorial_1.md)   
+    - [Submitting runtime upgrades](action/submit.md) 
 - [Real chains breaking - Case studies](case_study/readme.md)   
 
 

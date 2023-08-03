@@ -6,21 +6,48 @@ In this tutorial we will take a look on how you can utilize uptest-cli to detect
 #### Requirements:  
 *  Rust and Cargo   
 *  git  
-*  uptest-cli  
+*  [uptest-cli](https://github.com/uptest-sc/uptest)  
 `$ git clone https://github.com/uptest-sc/uptest && cd uptest/ && cargo build --release`
+*  [submit-runtime-upgrade](https://github.com/uptest-sc/submit-runtime-upgrade)   
+`$ git clone https://github.com/uptest-sc/submit-runtime-upgrade && cd submit-runtime-upgrade/ && cargo build --release`
 
 
 
-
-## Step one 
+## Step one: 
 Clone and compile substrate-node-template-hack  
 ```
 $ git clone -b tutorial_1 https://github.com/uptest-sc/substrate-node-template-hack
-$ cd substrate-node-template-hack/ && git checkout  
-$ cargo build --release
+$ cd substrate-node-template-hack/  
 ```
 
-#### Reset the spec_version:  
+#### Change the spec_version to 100:  
+Head over to `runtime/src/lib.rs` and edit spec_version to 100.
+
+#### Compile the node:   
+`$ cargo build --release`
+
+#### Copy the binary to another file: 
+`cp target/release/substrate-node-template version_100 `
+
+#### Start the node:  
+`$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node`
+
+#### Verify that spec_version is 100  
+```
+./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: "node-template"
+Runtime version: 100
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+``` 
+
+
+## Step two:
+
+#### Change the spec_version to 101:  
 Head over to `runtime/src/lib.rs` and edit spec_version to 101.   
 
 ```rust
@@ -29,7 +56,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("node-template"),
 	impl_name: create_runtime_str!("node-template"),
 	authoring_version: 1,
-	spec_version: 109, // change me to 101
+	spec_version: 100, // change me to 101
 	impl_version: 3,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -73,8 +100,6 @@ fn on_initialize(n: BlockNumberFor<T>) -> Weight {
 
 ```
 
-Note:
-
 
 Change the do_something_second function:
 ```rust
@@ -86,8 +111,8 @@ pub fn do_something_second(origin: OriginFor<T>, something2: u64) -> DispatchRes
 ```
 
 
-#### Start the node:   
-`$ RUST_LOG=runtime=debug ./target/release/node-template --dev --ws-external --base-path=/tmp/temp_node`   
+#### Start the node with the copied binary and the same base-path:   
+`$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node`   
 ```
 …1cec), ⬇ 0 ⬆ 0
 INFO tokio-runtime-worker sc_basic_authorship::basic_authorship: 🙌 Startin
@@ -98,42 +123,104 @@ EBUG tokio-runtime-worker runtime: second is: None
 EBUG tokio-runtime-worker runtime: Finalized block: #2                    
 EBUG tokio-runtime-worker runtime::system: [2] 0 extrinsics, length: 11 (no
 ```
-Note: We want to set a `--base-path` and not just use `--`.   
 
 The node should start and should be able to see the value of *Something2* storage item in the logs.  
 
+## Step three: 
+Head over to Polkadot.js.apps and connect to your chain. Then go to Developer > extrinsics > Pallet templateModule and function doSomethingSecond and set the boolean to true. Submit the transaction and in your node log file you should see that the value is set to true in your logs.   
+ 
 
-Go to polkadot.js.org/apps >  
+## Step four:   
+Now we have two version of our node, version 100 that is running and our new version, the 101.
+#### Use uptest-cli to display changes made  
+Use uptest-cli with the '-c' flag to see changes made, we want to start this before we push the upgrade and then check back once we have pushed the upgrade:
+```
+./target/release/uptest  -c ws://127.0.0.1:9944
+Uptest command line tool
+running ws host: "ws://127.0.0.1:9944"
+Connected to chain
+Gathered current storage types
+Waiting for runtime upgrade
+```
+
+#### We now want to push a runtime upgrade.
+Clone the [submit-runtime-upgrade](https://github.com/uptest-sc/submit-runtime-upgrade) repo. Modify it to your needs and compile it.
+
+Run it:  
+```
+./target/release/submit-runtime-upgrade 
+Current Runtime Version: 100
+sending tx
+Sent tx: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Runtime Version changed from 100 to 101
+```
 
 
- and verify that spec_version is set to 101:
-# INSERT UPTEST CHAIN INFO CHECK
-spec_version: 101 
+#### Check back at uptest-cli
+The rest of our output should have been caught by uptest now:
+```
+./target/release/uptest  -c ws://127.0.0.1:9944
+...
+Runtime upgrade in block: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Having a coffee break before next block...
+Scanning the new metadata for changes
+Runtime upgraded from version: 108 to new version: 109
+Pallet name:  "TemplateModule"
+    Storage item name:  "Something2" 
+    Storage item type:  StorageValue 
+    Old storage type:  Primitive(U64)
+    New storage type: Primitive(bool)
 
-Compile the node
+```
 
-Change Something2 type from bool > u64
 
-## Step two  
+#### Check the spec_version with uptest:  
+We want to make sure our chain has started and that the correct spec_version was set.  
+```
+./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: "node-template"
+Runtime version: 101
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+``` 
 
-spec_version: 109
 
-## Step three  
+## Step five:    
 
-spec_version: 110  
+Now we pushed the runtime upgrade but not migrated the data stored so we should still have the bool stored where it's now u64. 
 
+#### Change the spec_version to 102:  
+`runtime/src/lib.rs` and edit spec_version to 102.   
+
+Create an unwrap statement to assume that our value is set to a u64.: 
+```rust
+fn on_initialize(n: BlockNumberFor<T>) -> Weight {
+			let printme = format!("on_initialize(#{:?})", n);
+			print(printme.as_str());
+			let second: Option<u64> = Something2::<T>::get(); //bool here
+//			let to_print: u64 = second.unwrap();//change me to bool
+			let sp = format!("second is: {:?}", second);
+			print(sp.as_str());
+			Weight::from_parts(2175, 0)
+		}
+
+```
+
+Push the runtime upgrade just like you did previously with submite-runtime-upgrade.  
 
 restart node and you should see it fail:
 ```
 ces
-2023-07-28 13:16:36.000 DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TransactionPayment
-2023-07-28 13:16:36.000 DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for Sudo
-
-2023-07-28 13:16:36.000 DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TemplateModule
-2023-07-28 13:16:36.001 DEBUG tokio-runtime-worker runtime: on_initialize(#672)                    
-2023-07-28 13:16:36.001 ERROR tokio-runtime-worker runtime::storage: Corrupted state at `[23, 126, 104, 87, 251, 29, 14, 64, 147, 118, 18, 47, 238, 58, 212, 248, 59, 217, 88, 236, 134, 13, 139, 180, 170, 77, 234, 152, 3, 48, 17, 235]: Error`
-2023-07-28 13:16:36.001 ERROR tokio-runtime-worker runtime: panicked at 'called `Option::unwrap()` on a `None` value', /tmp/substrate-node-template/pallets/template/src/lib.rs:46:40                  
-2023-07-28 13:16:36.001  WARN tokio-runtime-worker aura: Proposing failed: Import failed: Error at calling runtime api: Execution failed: Execution aborted due to trap: wasm trap: wasm `unreachable` instruction executed
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TransactionPayment
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for Sudo
+ DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TemplateModule
+ DEBUG tokio-runtime-worker runtime: on_initialize(#672)                    
+ ERROR tokio-runtime-worker runtime::storage: Corrupted state at `[23, 126, 104, 87, 251, 29, 14, 64, 147, 118, 18, 47, 238, 58, 212, 248, 59, 217, 88, 236, 134, 13, 139, 180, 170, 77, 234, 152, 3, 48, 17, 235]: Error`
+ ERROR tokio-runtime-worker runtime: panicked at 'called `Option::unwrap()` on a `None` value', /tmp/substrate-node-template/pallets/template/src/lib.rs:46:40                  
+  WARN tokio-runtime-worker aura: Proposing failed: Import failed: Error at calling runtime api: Execution failed: Execution aborted due to trap: wasm trap: wasm `unreachable` instruction executed
 WASM backtrace:
 error while executing at wasm backtrace:
     0: 0x641a8 - <unknown>!rust_begin_unwind
@@ -147,3 +234,6 @@ note: using the `WASMTIME_BACKTRACE_DETAILS=1` environment variable may show mor
 ```
 
 Block production have now stopped
+
+
+## WIP tutorial
