@@ -13,6 +13,7 @@
 - [Libuptest code examples](code_samples/README.md)   
     - [Check added and changed storage items after a runtime upgrade](code_samples/upgrade_change_diff.md)
     - [Using Libuptest with Subxt](code_samples/subxt.md)
+    - [Libuptest random input generation](code_samples/random.md)
 - [Libuptest in Action](action/readme.md)  
     - [Tutorial #1 preventing breaking upgrades](action/tutorial_1.md)   
     - [Submitting runtime upgrades](action/submit.md) 
