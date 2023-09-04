@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades and custom events</a></li><li class="chapter-item expanded "><a href="cli/event_sub.html"><strong aria-hidden="true">2.2.</strong> Subscribe to block events</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Introduction</a></li><li class="chapter-item expanded "><a href="my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades and custom events</a></li><li class="chapter-item expanded "><a href="cli/event_sub.html"><strong aria-hidden="true">2.2.</strong> Subscribe to block events</a></li></ol></li><li class="chapter-item expanded "><a href="code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li><li class="chapter-item expanded "><a href="code_samples/random.html"><strong aria-hidden="true">3.3.</strong> Libuptest random input generation</a></li></ol></li><li class="chapter-item expanded "><a href="action/index.html"><strong aria-hidden="true">4.</strong> Libuptest in Action</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="action/tutorial_1.html"><strong aria-hidden="true">4.1.</strong> Tutorial #1 preventing breaking upgrades</a></li><li class="chapter-item expanded "><a href="action/submit.html"><strong aria-hidden="true">4.2.</strong> Submitting runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="case_study/index.html"><strong aria-hidden="true">5.</strong> Real chains breaking - Case studies</a></li><li class="chapter-item expanded "><a href="action/auto-test.html"><strong aria-hidden="true">6.</strong> Automatically generate tests</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cli/auto-test.html"><strong aria-hidden="true">6.1.</strong> uptest-cli auto-test</a></li><li class="chapter-item expanded "><a href="code/autotest.html"><strong aria-hidden="true">6.2.</strong> libuptest auto-test</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -156,6 +156,9 @@
 <a href="https://github.com/apopiak/substrate-migrations">https://github.com/apopiak/substrate-migrations</a><br />
 <a href="https://github.com/paritytech/substrate/issues?q=label%3AE1-runtimemigration%20">Runtime migration issues for substrate</a><br />
 <a href="https://docs.rs/libuptest/0.1.1/libuptest/">doc.rs for Libuptest</a></p>
+<h3 id="contribute"><a class="header" href="#contribute">Contribute:</a></h3>
+<p>If you want to modify or contribute to this documentation, you can do so by submitting a pull request to:<br />
+<a href="https://github.com/uptest-sc/uptest-sc.github.io">https://github.com/uptest-sc/uptest-sc.github.io</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="install-and-utilize-uptest"><a class="header" href="#install-and-utilize-uptest">Install and utilize Uptest:</a></h1>
 <h2 id="libuptest-can-be-found-at-cratesio-and-github"><a class="header" href="#libuptest-can-be-found-at-cratesio-and-github">Libuptest can be found at crates.io and github:</a></h2>
 <pre><code class="language-shell">$ cargo new --bin try_uptest  
@@ -823,6 +826,709 @@ async fn send_tx() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
 <h3 id="external-links-3"><a class="header" href="#external-links-3">External links:</a></h3>
 <p><a href="https://github.com/paritytech/subxt">https://github.com/paritytech/subxt</a><br />
 <a href="https://docs.rs/subxt/latest/subxt/book/index.html">Subxt Guide</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-random-input-generation"><a class="header" href="#libuptest-random-input-generation">Libuptest random input generation</a></h1>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use libuptest::test_helper::InputHelper;
+<span class="boring">}</span></code></pre></pre>
+<h3 id="generate-u128-u64-u32-u8"><a class="header" href="#generate-u128-u64-u32-u8">Generate u128, u64, u32, u8:</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let rand_u128: u128 = InputHelper::get_u128();
+println!(&quot;u128: {}&quot;, rand_u128);
+let rand_u64: u64 = InputHelper::get_u64();
+println!(&quot;u64: {}&quot;, rand_u64);
+let rand_u32: u32 = InputHelper::get_u32();
+println!(&quot;u32: {}&quot;, rand_u32);
+let rand_u8: u8 = InputHelper::get_u8();
+println!(&quot;u8: {}&quot;, rand_u8);
+<span class="boring">}</span></code></pre></pre>
+<h5 id="output"><a class="header" href="#output">Output:</a></h5>
+<pre><code>u128: 225864167899979897207776191162143802327
+u64: 15697195152894034115
+u32: 986567393
+u8: 247
+</code></pre>
+<h3 id="generate-f32-and-f64"><a class="header" href="#generate-f32-and-f64">Generate f32 and f64:</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let rand_f64: f64 = InputHelper::get_f64();
+println!(&quot;f64: {}&quot;, rand_f64);
+let rand_f32: f32 = InputHelper::get_f32();
+println!(&quot;f32: {}&quot;, rand_f32);
+<span class="boring">}</span></code></pre></pre>
+<h5 id="output-1"><a class="header" href="#output-1">Output:</a></h5>
+<pre><code>f64: 0.07036028431640629
+f32: 0.48309267
+</code></pre>
+<h3 id="generate-boolean"><a class="header" href="#generate-boolean">Generate boolean:</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let rand_boolean: bool = InputHelper::get_boolean();
+println!(&quot;boolean: {}&quot;, rand_boolean);
+<span class="boring">}</span></code></pre></pre>
+<h5 id="output-2"><a class="header" href="#output-2">Output:</a></h5>
+<pre><code>boolean: true
+</code></pre>
+<h3 id="generate-addressesaccountid32"><a class="header" href="#generate-addressesaccountid32">Generate Addresses/AccountId32:</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let rand_address = InputHelper::get_address();
+println!(&quot;Address: {}&quot;, rand_address.to_string());
+<span class="boring">}</span></code></pre></pre>
+<h5 id="output-3"><a class="header" href="#output-3">Output:</a></h5>
+<pre><code>Address: 5HjAev48u9TC5A3QAyu8WBZuWo4asVx1Z72jNoNcAWzsZpU8
+</code></pre>
+<h4 id="documentation"><a class="header" href="#documentation">Documentation:</a></h4>
+<p><a href="https://docs.rs/libuptest/latest/libuptest/test_helper/struct.InputHelper.html">https://docs.rs/libuptest/latest/libuptest/test_helper/struct.InputHelper.html</a>
+<a href="https://github.com/uptest-sc/uptest/blob/main/examples/examples/test_input_gen.rs">Libuptest random input example code</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-in-action"><a class="header" href="#libuptest-in-action">Libuptest in Action</a></h1>
+<p>This chapter walks you hand in hand on how you can utilize uptest to prevent bad upgrades from happening.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tutorial-1-preventing-breaking-upgrades"><a class="header" href="#tutorial-1-preventing-breaking-upgrades">Tutorial #1 preventing breaking upgrades</a></h1>
+<h3 id="summary"><a class="header" href="#summary">Summary:</a></h3>
+<p>In this tutorial we will take a look on how you can utilize uptest-cli to detect storage changes and how the chain can break if those are not migrated properly. Three runtime upgrades will be pushed, changing the type of a storage value, then inproperly <code>unwraping</code> the new value without migrating it. </p>
+<h4 id="requirements"><a class="header" href="#requirements">Requirements:</a></h4>
+<ul>
+<li>Rust and Cargo</li>
+<li>git</li>
+<li><a href="https://github.com/uptest-sc/uptest">uptest-cli</a><br />
+<code>$ git clone https://github.com/uptest-sc/uptest &amp;&amp; cd uptest/ &amp;&amp; cargo build --release</code></li>
+<li><a href="https://github.com/uptest-sc/submit-runtime-upgrade">submit-runtime-upgrade</a><br />
+<code>$ git clone https://github.com/uptest-sc/submit-runtime-upgrade &amp;&amp; cd submit-runtime-upgrade/ &amp;&amp; cargo build --release</code></li>
+</ul>
+<h2 id="step-one"><a class="header" href="#step-one">Step one:</a></h2>
+<p>Clone and compile substrate-node-template-hack</p>
+<pre><code>$ git clone -b tutorial_1 https://github.com/uptest-sc/substrate-node-template-hack
+$ cd substrate-node-template-hack/  
+</code></pre>
+<h4 id="change-the-spec_version-to-100"><a class="header" href="#change-the-spec_version-to-100">Change the spec_version to 100:</a></h4>
+<p>Head over to <code>runtime/src/lib.rs</code> and edit spec_version to 100.</p>
+<h4 id="compile-the-node"><a class="header" href="#compile-the-node">Compile the node:</a></h4>
+<p><code>$ cargo build --release</code></p>
+<h4 id="copy-the-binary-to-another-file"><a class="header" href="#copy-the-binary-to-another-file">Copy the binary to another file:</a></h4>
+<p><code>cp target/release/substrate-node-template version_100 </code></p>
+<h4 id="start-the-node"><a class="header" href="#start-the-node">Start the node:</a></h4>
+<p><code>$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node</code></p>
+<h4 id="verify-that-spec_version-is-100"><a class="header" href="#verify-that-spec_version-is-100">Verify that spec_version is 100</a></h4>
+<pre><code>./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: &quot;node-template&quot;
+Runtime version: 100
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+</code></pre>
+<h2 id="step-two"><a class="header" href="#step-two">Step two:</a></h2>
+<h4 id="change-the-spec_version-to-101"><a class="header" href="#change-the-spec_version-to-101">Change the spec_version to 101:</a></h4>
+<p>Head over to <code>runtime/src/lib.rs</code> and edit spec_version to 101.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: create_runtime_str!(&quot;node-template&quot;),
+	impl_name: create_runtime_str!(&quot;node-template&quot;),
+	authoring_version: 1,
+	spec_version: 100, // change me to 101
+	impl_version: 3,
+	apis: RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	state_version: 1,
+};
+<span class="boring">}</span></code></pre></pre>
+<p><a href="https://github.com/uptest-sc/substrate-node-template-hack/blob/tutorial_1/runtime/src/lib.rs#L106C2-L106C14">https://github.com/uptest-sc/substrate-node-template-hack/blob/tutorial_1/runtime/src/lib.rs#L106C2-L106C14</a></p>
+<h4 id="modify-pallet-template"><a class="header" href="#modify-pallet-template">Modify Pallet-template</a></h4>
+<p>We are going to be focusing on a storage item in pallet-template. 
+Our example storage item is the <code>Something2</code> storageValue:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[pallet::storage]
+#[pallet::getter(fn something2)]
+pub type Something2&lt;T&gt; = StorageValue&lt;_, u64&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>We want to change the storage type from a u64 to a boolean:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[pallet::storage]
+#[pallet::getter(fn something2)]
+pub type Something2&lt;T&gt; = StorageValue&lt;_, bool&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>Change the on_initialize function from u64 to bool type, this function runs on the start of every block:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn on_initialize(n: BlockNumberFor&lt;T&gt;) -&gt; Weight {
+			let printme = format!(&quot;on_initialize(#{:?})&quot;, n);
+			print(printme.as_str());
+			let second: Option&lt;u64&gt; = Something2::&lt;T&gt;::get(); //bool here
+//			let to_print: u64 = second.unwrap();//change me to bool
+			let sp = format!(&quot;second is: {:?}&quot;, second);
+			print(sp.as_str());
+			Weight::from_parts(2175, 0)
+		}
+
+<span class="boring">}</span></code></pre></pre>
+<p>Change the do_something_second function:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn do_something_second(origin: OriginFor&lt;T&gt;, something2: u64) -&gt; DispatchResult { // change me
+			let who = ensure_signed(origin)?;
+			&lt;Something2&lt;T&gt;&gt;::put(something2);
+			Ok(())
+		}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="start-the-node-with-the-copied-binary-and-the-same-base-path"><a class="header" href="#start-the-node-with-the-copied-binary-and-the-same-base-path">Start the node with the copied binary and the same base-path:</a></h4>
+<p><code>$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node</code></p>
+<pre><code>…1cec), ⬇ 0 ⬆ 0
+INFO tokio-runtime-worker sc_basic_authorship::basic_authorship: 🙌 Startin
+p of parent 0x6a60f1d4241c4678f6a860edea30a13ab4903a0a5414ea31a521eb8d625df
+
+EBUG tokio-runtime-worker runtime: on_initialize(#2)                      
+EBUG tokio-runtime-worker runtime: second is: None                        
+EBUG tokio-runtime-worker runtime: Finalized block: #2                    
+EBUG tokio-runtime-worker runtime::system: [2] 0 extrinsics, length: 11 (no
+</code></pre>
+<p>The node should start and should be able to see the value of <em>Something2</em> storage item in the logs.</p>
+<h2 id="step-three"><a class="header" href="#step-three">Step three:</a></h2>
+<p>Head over to Polkadot.js.apps and connect to your chain. Then go to Developer &gt; extrinsics &gt; Pallet templateModule and function doSomethingSecond and set the boolean to true. Submit the transaction and in your node log file you should see that the value is set to true in your logs.</p>
+<h2 id="step-four"><a class="header" href="#step-four">Step four:</a></h2>
+<p>Now we have two version of our node, version 100 that is running and our new version, the 101.</p>
+<h4 id="use-uptest-cli-to-display-changes-made"><a class="header" href="#use-uptest-cli-to-display-changes-made">Use uptest-cli to display changes made</a></h4>
+<p>Use uptest-cli with the '-c' flag to see changes made, we want to start this before we push the upgrade and then check back once we have pushed the upgrade:</p>
+<pre><code>./target/release/uptest  -c ws://127.0.0.1:9944
+Uptest command line tool
+running ws host: &quot;ws://127.0.0.1:9944&quot;
+Connected to chain
+Gathered current storage types
+Waiting for runtime upgrade
+</code></pre>
+<h4 id="we-now-want-to-push-a-runtime-upgrade"><a class="header" href="#we-now-want-to-push-a-runtime-upgrade">We now want to push a runtime upgrade.</a></h4>
+<p>Clone the <a href="https://github.com/uptest-sc/submit-runtime-upgrade">submit-runtime-upgrade</a> repo. Modify it to your needs and compile it.</p>
+<p>Run it:</p>
+<pre><code>./target/release/submit-runtime-upgrade 
+Current Runtime Version: 100
+sending tx
+Sent tx: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Runtime Version changed from 100 to 101
+</code></pre>
+<h4 id="check-back-at-uptest-cli"><a class="header" href="#check-back-at-uptest-cli">Check back at uptest-cli</a></h4>
+<p>The rest of our output should have been caught by uptest now:</p>
+<pre><code>./target/release/uptest  -c ws://127.0.0.1:9944
+...
+Runtime upgrade in block: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Having a coffee break before next block...
+Scanning the new metadata for changes
+Runtime upgraded from version: 108 to new version: 109
+Pallet name:  &quot;TemplateModule&quot;
+    Storage item name:  &quot;Something2&quot; 
+    Storage item type:  StorageValue 
+    Old storage type:  Primitive(U64)
+    New storage type: Primitive(bool)
+
+</code></pre>
+<h4 id="check-the-spec_version-with-uptest"><a class="header" href="#check-the-spec_version-with-uptest">Check the spec_version with uptest:</a></h4>
+<p>We want to make sure our chain has started and that the correct spec_version was set.</p>
+<pre><code>./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: &quot;node-template&quot;
+Runtime version: 101
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+</code></pre>
+<h2 id="step-five"><a class="header" href="#step-five">Step five:</a></h2>
+<p>Now we pushed the runtime upgrade but not migrated the data stored so we should still have the bool stored where it's now u64. </p>
+<h4 id="change-the-spec_version-to-102"><a class="header" href="#change-the-spec_version-to-102">Change the spec_version to 102:</a></h4>
+<p><code>runtime/src/lib.rs</code> and edit spec_version to 102.</p>
+<p>Create an unwrap statement to assume that our value is set to a u64.: </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn on_initialize(n: BlockNumberFor&lt;T&gt;) -&gt; Weight {
+			let printme = format!(&quot;on_initialize(#{:?})&quot;, n);
+			print(printme.as_str());
+			let second: Option&lt;u64&gt; = Something2::&lt;T&gt;::get(); //bool here
+//			let to_print: u64 = second.unwrap();//change me to bool
+			let sp = format!(&quot;second is: {:?}&quot;, second);
+			print(sp.as_str());
+			Weight::from_parts(2175, 0)
+		}
+
+<span class="boring">}</span></code></pre></pre>
+<p>Push the runtime upgrade just like you did previously with submite-runtime-upgrade.</p>
+<p>restart node and you should see it fail:</p>
+<pre><code>ces
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TransactionPayment
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for Sudo
+ DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TemplateModule
+ DEBUG tokio-runtime-worker runtime: on_initialize(#672)                    
+ ERROR tokio-runtime-worker runtime::storage: Corrupted state at `[23, 126, 104, 87, 251, 29, 14, 64, 147, 118, 18, 47, 238, 58, 212, 248, 59, 217, 88, 236, 134, 13, 139, 180, 170, 77, 234, 152, 3, 48, 17, 235]: Error`
+ ERROR tokio-runtime-worker runtime: panicked at 'called `Option::unwrap()` on a `None` value', /tmp/substrate-node-template/pallets/template/src/lib.rs:46:40                  
+  WARN tokio-runtime-worker aura: Proposing failed: Import failed: Error at calling runtime api: Execution failed: Execution aborted due to trap: wasm trap: wasm `unreachable` instruction executed
+WASM backtrace:
+error while executing at wasm backtrace:
+    0: 0x641a8 - &lt;unknown&gt;!rust_begin_unwind
+    1: 0x2938 - &lt;unknown&gt;!core::panicking::panic_fmt::hca80ede79c2b9c5b                            
+    2: 0x298b - &lt;unknown&gt;!core::panicking::panic::hed93247151462aff                                
+    3: 0x1ccc5 - &lt;unknown&gt;!&lt;pallet_template::pallet::Pallet&lt;T&gt; as frame_support::traits::hooks::OnInitialize&lt;&lt;T as frame_system::pallet::Config&gt;::BlockNumber&gt;&gt;::on_initialize::h493bf697531cf5b3      
+    4: 0x25a40 - &lt;unknown&gt;!frame_executive::Executive&lt;System,Block,Context,UnsignedValidator,AllPalletsWithSystem,COnRuntimeUpgrade&gt;::initialize_block::h066e78a766ca61bb                              
+    5: 0x4900e - &lt;unknown&gt;!Core_initialize_block
+note: using the `WASMTIME_BACKTRACE_DETAILS=1` environment variable may show more debugging information
+2023-07-28 13:16:36.194  INFO tokio-runtime-worker substrate: 💤 Idle (0 peers), best: #671 (0x2b63…7b5f), finalized #669 (0xd406…b775), ⬇ 0 ⬆ 0
+</code></pre>
+<p>Block production have now stopped</p>
+<h2 id="wip-tutorial"><a class="header" href="#wip-tutorial">WIP tutorial</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="submitting-runtime-upgrades"><a class="header" href="#submitting-runtime-upgrades">Submitting runtime upgrades</a></h1>
+<p>There are 2 main ways of submitting a runtime upgrade:</p>
+<h3 id="sudo"><a class="header" href="#sudo">Sudo:</a></h3>
+<p>If the chain has a sudo key enabled, comonly enabled by dev chainspec's. A <code> System::SetCode</code> wrapped in a <code>Sudo sudo_unchecked_weight</code> transaction can overwrite the runtime and trigger a runtime upgrade with the submitted wasm file submitted with the setcode transaction.</p>
+<p>Code example:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::path::Path;
+use libuptest::metadata::read_wasm_binary_correct;
+use subxt::{OnlineClient, PolkadotConfig};
+...
+
+let wasm_path = Path::new(&quot;/tmp/substrate-node-template/target/release/wbuild/node-template-runtime/node_template_runtime.compact.wasm&quot;);
+// read binary
+let code: Vec&lt;u8&gt; = read_wasm_binary_correct(wasm_path).await;
+// create system set_code call
+let call = nodetemplate::runtime_types::node_template_runtime::RuntimeCall::System(
+SystemCall::set_code {
+    code: code.into(),
+},
+); //Call::System(
+let weight = Weight {
+ref_time: 0,
+proof_size: 0,
+};
+
+// create the sudo tx
+let sudo_tx = nodetemplate::tx()
+.sudo()
+.sudo_unchecked_weight(call, weight);
+<span class="boring">}</span></code></pre></pre>
+<p>Source code:<br />
+<a href="https://github.com/uptest-sc/submit-runtime-upgrade">https://github.com/uptest-sc/submit-runtime-upgrade</a></p>
+<h3 id="democracy-vote"><a class="header" href="#democracy-vote">Democracy vote:</a></h3>
+<h4 id="create-a-preimage-of-the-runtime-upgrade-set-code"><a class="header" href="#create-a-preimage-of-the-runtime-upgrade-set-code">Create a preimage of the runtime upgrade set code:</a></h4>
+<p>The user can submit a preimaged of the system setcode call. Then submit the preimage to democracy by submitting a democracy &gt; note preimage transaction. </p>
+<h4 id="submit-the-preimage-for-a-democracy-vote"><a class="header" href="#submit-the-preimage-for-a-democracy-vote">Submit the preimage for a democracy vote</a></h4>
+<p>Make a democracy &gt; propose transaction with your preimage hash.<br />
+Your proposal is now created!</p>
+<h4 id="get-votes"><a class="header" href="#get-votes">Get votes!</a></h4>
+<p>All you need to do now is to get enough votes for your proposal so the chain will execute it. If you are running a dev node we recommend modifying the time lenght for the life cycle of a proposal to make debugging faster and easier. </p>
+<h2 id="note"><a class="header" href="#note">Note:</a></h2>
+<p>Chains differentiate in how you submit the upgrade, depending on implementation.<br />
+If you have a chain that submits a runtime upgrade in a different way, submit a pr:<br />
+<a href="https://github.com/uptest-sc/uptest-sc.github.io/pulls">https://github.com/uptest-sc/uptest-sc.github.io/pulls</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="real-chains-breaking---case-studies"><a class="header" href="#real-chains-breaking---case-studies">Real chains breaking - Case studies</a></h1>
+<p>This chapter will focus on upgrades that have taken place on live networks that have caused live chains to stop producing blocks.</p>
+<p>Submit tips here:<br />
+<a href="https://github.com/uptest-sc/uptest-sc.github.io/issues/12">https://github.com/uptest-sc/uptest-sc.github.io/issues/12</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="automatically-generate-tests"><a class="header" href="#automatically-generate-tests">Automatically generate tests</a></h1>
+<p>Libuptest supports automatically generating suggested ways to query each storage item.<br />
+This can be used to make writing tests faster.</p>
+<h3 id="libuptest"><a class="header" href="#libuptest">Libuptest:</a></h3>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use libuptest::test_generation::autogen::{generate_auto_test, generate_test_std, AutoTestSummary, AutoTests};
+<span class="boring">}</span></code></pre></pre>
+<h3 id="uptest-cli"><a class="header" href="#uptest-cli">Uptest-cli:</a></h3>
+<pre><code class="language-shell">$ uptest-cli -a ws://127.0.0.1:9944
+</code></pre>
+<p>Let's explore them more indept in the next part.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="uptest-cli-auto-test"><a class="header" href="#uptest-cli-auto-test">uptest-cli auto-test</a></h1>
+<pre><code class="language-shell">$ uptest-cli -a ws://127.0.0.1:9944
+Uptest command line tool
+Connect to chain
+Scanning storage...
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;nonce&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Index&quot;), docs: [] }, Field { name: Some(&quot;consumers&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;providers&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;sufficients&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;data&quot;), ty: UntrackedSymbol { id: 5, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;AccountData&quot;), docs: [] }] })
+Storage Item name &quot;Account&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Index = query_storage_map(Account)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;ExtrinsicCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_ExtrinsicCount(testinput)
+random input is: &quot;let testinput: u32 = 4156112247u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;normal&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }, Field { name: Some(&quot;operational&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }, Field { name: Some(&quot;mandatory&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }] })
+Storage Item name &quot;BlockWeight&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: T = query_storage_map(BlockWeight)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;AllExtrinsicsLen&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_AllExtrinsicsLen(testinput)
+random input is: &quot;let testinput: u32 = 3905420446u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;BlockHash&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(BlockHash)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 2, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;ExtrinsicData&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let Query_chain_state = System.ExtrinsicData(); // query the StorageMap | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;Number&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Number(testinput)
+random input is: &quot;let testinput: u32 = 1953627433u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;ParentHash&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(ParentHash)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;logs&quot;), ty: UntrackedSymbol { id: 14, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;DigestItem&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Digest&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: Vec&lt;DigestItem&gt; = query_storage_map(Digest)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 18, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;Events&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let Query_chain_state = System.Events(); // query the StorageValue | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;EventCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_EventCount(testinput)
+random input is: &quot;let testinput: u32 = 770744696u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 45, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;EventTopics&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let Query_chain_state = System.EventTopics(); // query the StorageMap | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;spec_version&quot;), ty: UntrackedSymbol { id: 47, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;codec::Compact&lt;u32&gt;&quot;), docs: [] }, Field { name: Some(&quot;spec_name&quot;), ty: UntrackedSymbol { id: 48, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;sp_runtime::RuntimeString&quot;), docs: [] }] })
+Storage Item name &quot;LastRuntimeUpgrade&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: codec::Compact&lt;u32&gt; = query_storage_map(LastRuntimeUpgrade)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;UpgradedToU32RefCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_UpgradedToU32RefCount(testinput)
+random input is: &quot;let testinput: bool = true&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;UpgradedToTripleRefCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_UpgradedToTripleRefCount(testinput)
+random input is: &quot;let testinput: bool = false&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;ApplyExtrinsic&quot;, fields: [Field { name: None, ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u32&quot;), docs: [] }], index: 0, docs: [] }, Variant { name: &quot;Finalization&quot;, fields: [], index: 1, docs: [] }, Variant { name: &quot;Initialization&quot;, fields: [], index: 2, docs: [] }] })
+Storage Item name &quot;ExecutionPhase&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;ApplyExtrinsic&quot;
+&quot;Finalization&quot;
+&quot;Initialization&quot;
+random input is: &quot;let Query_chain_state = System.ExecutionPhase(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Timestamp&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;Now&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Now(testinput)
+random input is: &quot;let testinput: u64 = 6356334091091031003u64&quot;
+-------------------
+Pallet: &quot;Timestamp&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;DidUpdate&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_DidUpdate(testinput)
+random input is: &quot;let testinput: bool = false&quot;
+-------------------
+Pallet: &quot;Aura&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 72, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Authorities&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Authorities)&quot;
+-------------------
+Pallet: &quot;Aura&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 10, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u64&quot;), docs: [] }] })
+Storage Item name &quot;CurrentSlot&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: u64 = query_storage_map(CurrentSlot)&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;Live&quot;, fields: [], index: 0, docs: [] }, Variant { name: &quot;PendingPause&quot;, fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }], index: 1, docs: [] }, Variant { name: &quot;Paused&quot;, fields: [], index: 2, docs: [] }, Variant { name: &quot;PendingResume&quot;, fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }], index: 3, docs: [] }] })
+Storage Item name &quot;State&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;Live&quot;
+&quot;PendingPause&quot;
+&quot;Paused&quot;
+&quot;PendingResume&quot;
+random input is: &quot;let Query_chain_state = Grandpa.State(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;next_authorities&quot;), ty: UntrackedSymbol { id: 76, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;BoundedAuthorityList&lt;Limit&gt;&quot;), docs: [] }, Field { name: Some(&quot;forced&quot;), ty: UntrackedSymbol { id: 77, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Option&lt;N&gt;&quot;), docs: [] }] })
+Storage Item name &quot;PendingChange&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: N = query_storage_map(PendingChange)&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;NextForced&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_NextForced(testinput)
+random input is: &quot;let testinput: u32 = 3348882527u32&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Tuple(TypeDefTuple { fields: [UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }] })
+Storage Item name &quot;Stalled&quot;
+Storage Item type StorageValue
+Code:
+Type definition of tuple output: 
+tuple (
+Primitive(U32)
+Primitive(U32)
+) // end of tuple
+random input is: &quot;let Query_chain_state = Grandpa.Stalled(); // query the StorageValue, output is a tuple of &quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;CurrentSetId&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_CurrentSetId(testinput)
+random input is: &quot;let testinput: u64 = 10791354850851657412u64&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;SetIdSession&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SetIdSession(testinput)
+random input is: &quot;let testinput: u32 = 1303990955u32&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;TotalIssuance&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_TotalIssuance(testinput)
+random input is: &quot;let testinput: u128 = 241209649674657693693679353451022133585u128&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;InactiveIssuance&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_InactiveIssuance(testinput)
+random input is: &quot;let testinput: u128 = 70649824094909238760224179934204586030u128&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;free&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;reserved&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;misc_frozen&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;fee_frozen&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }] })
+Storage Item name &quot;Account&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Balance = query_storage_map(Account)&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 95, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Locks&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Locks)&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 98, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Reserves&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Reserves)&quot;
+-------------------
+Pallet: &quot;TransactionPayment&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u128&quot;), docs: [] }] })
+Storage Item name &quot;NextFeeMultiplier&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: u128 = query_storage_map(NextFeeMultiplier)&quot;
+-------------------
+Pallet: &quot;TransactionPayment&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;V1Ancient&quot;, fields: [], index: 0, docs: [] }, Variant { name: &quot;V2&quot;, fields: [], index: 1, docs: [] }] })
+Storage Item name &quot;StorageVersion&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;V1Ancient&quot;
+&quot;V2&quot;
+random input is: &quot;let Query_chain_state = TransactionPayment.StorageVersion(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Sudo&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;Key&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(Key)&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;Something&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something(testinput)
+random input is: &quot;let testinput: u32 = 2166200555u32&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;Something2&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something2(testinput)
+random input is: &quot;let testinput: u64 = 13381854620199913039u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;Something6&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something6(testinput)
+random input is: &quot;let testinput: u128 = 175114842145234008150363523808777702541u128&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;SomeMapfirst&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(SomeMapfirst)&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;NumberResultQuery&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_NumberResultQuery(testinput)
+random input is: &quot;let testinput: u32 = 308558816u32&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;SomeMaptwos&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_SomeMaptwos(testinput)
+random input is: &quot;let testinput: u64 = 11545124980994761057u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;SomeMaptwo&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SomeMaptwo(testinput)
+random input is: &quot;let testinput: u64 = 6774784951135778396u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;SomeMapthree&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SomeMapthree(testinput)
+random input is: &quot;let testinput: u32 = 659067354u32&quot;
+-------------------
+
+
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="libuptest-auto-test"><a class="header" href="#libuptest-auto-test">Libuptest auto-test</a></h1>
+<p>Libuptest supports automatically generating types for the storage entry types:</p>
+<ul>
+<li><input disabled="" type="checkbox" checked=""/>
+u8</li>
+<li><input disabled="" type="checkbox" checked=""/>
+u32 </li>
+<li><input disabled="" type="checkbox" checked=""/>
+u64</li>
+<li><input disabled="" type="checkbox" checked=""/>
+u128</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Boolean</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Balances(to a certain degree)</li>
+<li><input disabled="" type="checkbox" checked=""/>
+TypeDef::Composite types</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Tuples</li>
+</ul>
+<h4 id="interact-with-inputhelper"><a class="header" href="#interact-with-inputhelper">Interact with InputHelper</a></h4>
+<p>The auto-test module use <code>InputHelper</code> to generate random input for the user.</p>
+<h2 id="cargotoml"><a class="header" href="#cargotoml">Cargo.toml:</a></h2>
+<p>Enable the <code>auto-test</code> feature flag.</p>
+<pre><code class="language-toml">libuptest = { git = &quot;https://github.com/uptest-sc/uptest&quot;, version = &quot;0.1.3&quot;, features = [&quot;auto-test&quot;]}
+</code></pre>
+<h2 id="libuptest-1"><a class="header" href="#libuptest-1">Libuptest:</a></h2>
+<p>Code example:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use libuptest::error::Error;
+use libuptest::jsonrpseeclient::JsonrpseeClient;
+use libuptest::test_generation::autogen::{generate_auto_test, generate_test_std, AutoTestSummary, AutoTests};
+
+
+/// generate a summary(AutoTestSummary) of suggested generated ways to query each storage item
+async fn generate_tests(client: JsonrpseeClient) -&gt; Result&lt;AutoTests, Error&gt; {
+	// parse each storage entry and recommend a way to query it, similar to cli auto-test
+	let auto_tests: Vec&lt;AutoTestSummary&gt; = generate_auto_test(client).await?:
+	Ok(AutoTests)
+}
+
+/// cli version, this outputs the same data but directly to stdout with a old fashion print
+async fn generate_cli_output(client: JsonrpseeClient) -&gt; Result&lt;(), Error&gt; {
+	// print info about quering each storage entry
+	let _out = generate_test_std(client).await?;
+	Ok(())
+}
+<span class="boring">}</span></code></pre></pre>
+<h3 id="resources"><a class="header" href="#resources">Resources:</a></h3>
+<p><a href="https://github.com/uptest-sc/uptest/blob/main/cli/src/helper.rs#L31">cli auto-test</a><br />
+<a href="https://github.com/uptest-sc/uptest/tree/main/libuptest/src/test_generation">auto-test module code</a></p>
 
                     </main>
 

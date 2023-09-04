@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tutorial #1 preventing breaking upgrades - Uptest substrate documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades and custom events</a></li><li class="chapter-item expanded "><a href="../cli/event_sub.html"><strong aria-hidden="true">2.2.</strong> Subscribe to block events</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="../code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li><li class="chapter-item expanded "><a href="../code_samples/random.html"><strong aria-hidden="true">3.3.</strong> Libuptest random input generation</a></li></ol></li><li class="chapter-item expanded "><a href="../action/index.html"><strong aria-hidden="true">4.</strong> Libuptest in Action</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../action/tutorial_1.html" class="active"><strong aria-hidden="true">4.1.</strong> Tutorial #1 preventing breaking upgrades</a></li><li class="chapter-item expanded "><a href="../action/submit.html"><strong aria-hidden="true">4.2.</strong> Submitting runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../case_study/index.html"><strong aria-hidden="true">5.</strong> Real chains breaking - Case studies</a></li><li class="chapter-item expanded "><a href="../action/auto-test.html"><strong aria-hidden="true">6.</strong> Automatically generate tests</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/auto-test.html"><strong aria-hidden="true">6.1.</strong> uptest-cli auto-test</a></li><li class="chapter-item expanded "><a href="../code/autotest.html"><strong aria-hidden="true">6.2.</strong> libuptest auto-test</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Uptest substrate documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/uptest-sc/uptest-sc.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="tutorial-1-preventing-breaking-upgrades"><a class="header" href="#tutorial-1-preventing-breaking-upgrades">Tutorial #1 preventing breaking upgrades</a></h1>
+<h3 id="summary"><a class="header" href="#summary">Summary:</a></h3>
+<p>In this tutorial we will take a look on how you can utilize uptest-cli to detect storage changes and how the chain can break if those are not migrated properly. Three runtime upgrades will be pushed, changing the type of a storage value, then inproperly <code>unwraping</code> the new value without migrating it. </p>
+<h4 id="requirements"><a class="header" href="#requirements">Requirements:</a></h4>
+<ul>
+<li>Rust and Cargo</li>
+<li>git</li>
+<li><a href="https://github.com/uptest-sc/uptest">uptest-cli</a><br />
+<code>$ git clone https://github.com/uptest-sc/uptest &amp;&amp; cd uptest/ &amp;&amp; cargo build --release</code></li>
+<li><a href="https://github.com/uptest-sc/submit-runtime-upgrade">submit-runtime-upgrade</a><br />
+<code>$ git clone https://github.com/uptest-sc/submit-runtime-upgrade &amp;&amp; cd submit-runtime-upgrade/ &amp;&amp; cargo build --release</code></li>
+</ul>
+<h2 id="step-one"><a class="header" href="#step-one">Step one:</a></h2>
+<p>Clone and compile substrate-node-template-hack</p>
+<pre><code>$ git clone -b tutorial_1 https://github.com/uptest-sc/substrate-node-template-hack
+$ cd substrate-node-template-hack/  
+</code></pre>
+<h4 id="change-the-spec_version-to-100"><a class="header" href="#change-the-spec_version-to-100">Change the spec_version to 100:</a></h4>
+<p>Head over to <code>runtime/src/lib.rs</code> and edit spec_version to 100.</p>
+<h4 id="compile-the-node"><a class="header" href="#compile-the-node">Compile the node:</a></h4>
+<p><code>$ cargo build --release</code></p>
+<h4 id="copy-the-binary-to-another-file"><a class="header" href="#copy-the-binary-to-another-file">Copy the binary to another file:</a></h4>
+<p><code>cp target/release/substrate-node-template version_100 </code></p>
+<h4 id="start-the-node"><a class="header" href="#start-the-node">Start the node:</a></h4>
+<p><code>$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node</code></p>
+<h4 id="verify-that-spec_version-is-100"><a class="header" href="#verify-that-spec_version-is-100">Verify that spec_version is 100</a></h4>
+<pre><code>./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: &quot;node-template&quot;
+Runtime version: 100
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+</code></pre>
+<h2 id="step-two"><a class="header" href="#step-two">Step two:</a></h2>
+<h4 id="change-the-spec_version-to-101"><a class="header" href="#change-the-spec_version-to-101">Change the spec_version to 101:</a></h4>
+<p>Head over to <code>runtime/src/lib.rs</code> and edit spec_version to 101.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[sp_version::runtime_version]
+pub const VERSION: RuntimeVersion = RuntimeVersion {
+	spec_name: create_runtime_str!(&quot;node-template&quot;),
+	impl_name: create_runtime_str!(&quot;node-template&quot;),
+	authoring_version: 1,
+	spec_version: 100, // change me to 101
+	impl_version: 3,
+	apis: RUNTIME_API_VERSIONS,
+	transaction_version: 1,
+	state_version: 1,
+};
+<span class="boring">}</span></code></pre></pre>
+<p><a href="https://github.com/uptest-sc/substrate-node-template-hack/blob/tutorial_1/runtime/src/lib.rs#L106C2-L106C14">https://github.com/uptest-sc/substrate-node-template-hack/blob/tutorial_1/runtime/src/lib.rs#L106C2-L106C14</a></p>
+<h4 id="modify-pallet-template"><a class="header" href="#modify-pallet-template">Modify Pallet-template</a></h4>
+<p>We are going to be focusing on a storage item in pallet-template. 
+Our example storage item is the <code>Something2</code> storageValue:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[pallet::storage]
+#[pallet::getter(fn something2)]
+pub type Something2&lt;T&gt; = StorageValue&lt;_, u64&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>We want to change the storage type from a u64 to a boolean:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[pallet::storage]
+#[pallet::getter(fn something2)]
+pub type Something2&lt;T&gt; = StorageValue&lt;_, bool&gt;;
+<span class="boring">}</span></code></pre></pre>
+<p>Change the on_initialize function from u64 to bool type, this function runs on the start of every block:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn on_initialize(n: BlockNumberFor&lt;T&gt;) -&gt; Weight {
+			let printme = format!(&quot;on_initialize(#{:?})&quot;, n);
+			print(printme.as_str());
+			let second: Option&lt;u64&gt; = Something2::&lt;T&gt;::get(); //bool here
+//			let to_print: u64 = second.unwrap();//change me to bool
+			let sp = format!(&quot;second is: {:?}&quot;, second);
+			print(sp.as_str());
+			Weight::from_parts(2175, 0)
+		}
+
+<span class="boring">}</span></code></pre></pre>
+<p>Change the do_something_second function:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>pub fn do_something_second(origin: OriginFor&lt;T&gt;, something2: u64) -&gt; DispatchResult { // change me
+			let who = ensure_signed(origin)?;
+			&lt;Something2&lt;T&gt;&gt;::put(something2);
+			Ok(())
+		}
+<span class="boring">}</span></code></pre></pre>
+<h4 id="start-the-node-with-the-copied-binary-and-the-same-base-path"><a class="header" href="#start-the-node-with-the-copied-binary-and-the-same-base-path">Start the node with the copied binary and the same base-path:</a></h4>
+<p><code>$ RUST_LOG=runtime=debug ./version_100 --dev --ws-external --base-path=/tmp/temp_node</code></p>
+<pre><code>…1cec), ⬇ 0 ⬆ 0
+INFO tokio-runtime-worker sc_basic_authorship::basic_authorship: 🙌 Startin
+p of parent 0x6a60f1d4241c4678f6a860edea30a13ab4903a0a5414ea31a521eb8d625df
+
+EBUG tokio-runtime-worker runtime: on_initialize(#2)                      
+EBUG tokio-runtime-worker runtime: second is: None                        
+EBUG tokio-runtime-worker runtime: Finalized block: #2                    
+EBUG tokio-runtime-worker runtime::system: [2] 0 extrinsics, length: 11 (no
+</code></pre>
+<p>The node should start and should be able to see the value of <em>Something2</em> storage item in the logs.</p>
+<h2 id="step-three"><a class="header" href="#step-three">Step three:</a></h2>
+<p>Head over to Polkadot.js.apps and connect to your chain. Then go to Developer &gt; extrinsics &gt; Pallet templateModule and function doSomethingSecond and set the boolean to true. Submit the transaction and in your node log file you should see that the value is set to true in your logs.</p>
+<h2 id="step-four"><a class="header" href="#step-four">Step four:</a></h2>
+<p>Now we have two version of our node, version 100 that is running and our new version, the 101.</p>
+<h4 id="use-uptest-cli-to-display-changes-made"><a class="header" href="#use-uptest-cli-to-display-changes-made">Use uptest-cli to display changes made</a></h4>
+<p>Use uptest-cli with the '-c' flag to see changes made, we want to start this before we push the upgrade and then check back once we have pushed the upgrade:</p>
+<pre><code>./target/release/uptest  -c ws://127.0.0.1:9944
+Uptest command line tool
+running ws host: &quot;ws://127.0.0.1:9944&quot;
+Connected to chain
+Gathered current storage types
+Waiting for runtime upgrade
+</code></pre>
+<h4 id="we-now-want-to-push-a-runtime-upgrade"><a class="header" href="#we-now-want-to-push-a-runtime-upgrade">We now want to push a runtime upgrade.</a></h4>
+<p>Clone the <a href="https://github.com/uptest-sc/submit-runtime-upgrade">submit-runtime-upgrade</a> repo. Modify it to your needs and compile it.</p>
+<p>Run it:</p>
+<pre><code>./target/release/submit-runtime-upgrade 
+Current Runtime Version: 100
+sending tx
+Sent tx: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Runtime Version changed from 100 to 101
+</code></pre>
+<h4 id="check-back-at-uptest-cli"><a class="header" href="#check-back-at-uptest-cli">Check back at uptest-cli</a></h4>
+<p>The rest of our output should have been caught by uptest now:</p>
+<pre><code>./target/release/uptest  -c ws://127.0.0.1:9944
+...
+Runtime upgrade in block: 0xb91bc8ed09a7a3e0accbaa92720412f382f4ae211218acece279a251bd67189c
+Having a coffee break before next block...
+Scanning the new metadata for changes
+Runtime upgraded from version: 108 to new version: 109
+Pallet name:  &quot;TemplateModule&quot;
+    Storage item name:  &quot;Something2&quot; 
+    Storage item type:  StorageValue 
+    Old storage type:  Primitive(U64)
+    New storage type: Primitive(bool)
+
+</code></pre>
+<h4 id="check-the-spec_version-with-uptest"><a class="header" href="#check-the-spec_version-with-uptest">Check the spec_version with uptest:</a></h4>
+<p>We want to make sure our chain has started and that the correct spec_version was set.</p>
+<pre><code>./target/release/uptest -i ws://127.0.0.1:9944
+Uptest command line tool
+----Chain-Info----
+Chain Name: &quot;node-template&quot;
+Runtime version: 101
+Authoring Version: 1
+State Version: 1
+--E-O-L--
+</code></pre>
+<h2 id="step-five"><a class="header" href="#step-five">Step five:</a></h2>
+<p>Now we pushed the runtime upgrade but not migrated the data stored so we should still have the bool stored where it's now u64. </p>
+<h4 id="change-the-spec_version-to-102"><a class="header" href="#change-the-spec_version-to-102">Change the spec_version to 102:</a></h4>
+<p><code>runtime/src/lib.rs</code> and edit spec_version to 102.</p>
+<p>Create an unwrap statement to assume that our value is set to a u64.: </p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn on_initialize(n: BlockNumberFor&lt;T&gt;) -&gt; Weight {
+			let printme = format!(&quot;on_initialize(#{:?})&quot;, n);
+			print(printme.as_str());
+			let second: Option&lt;u64&gt; = Something2::&lt;T&gt;::get(); //bool here
+//			let to_print: u64 = second.unwrap();//change me to bool
+			let sp = format!(&quot;second is: {:?}&quot;, second);
+			print(sp.as_str());
+			Weight::from_parts(2175, 0)
+		}
+
+<span class="boring">}</span></code></pre></pre>
+<p>Push the runtime upgrade just like you did previously with submite-runtime-upgrade.</p>
+<p>restart node and you should see it fail:</p>
+<pre><code>ces
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TransactionPayment
+DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for Sudo
+ DEBUG tokio-runtime-worker runtime::frame-support: ✅ no migration for TemplateModule
+ DEBUG tokio-runtime-worker runtime: on_initialize(#672)                    
+ ERROR tokio-runtime-worker runtime::storage: Corrupted state at `[23, 126, 104, 87, 251, 29, 14, 64, 147, 118, 18, 47, 238, 58, 212, 248, 59, 217, 88, 236, 134, 13, 139, 180, 170, 77, 234, 152, 3, 48, 17, 235]: Error`
+ ERROR tokio-runtime-worker runtime: panicked at 'called `Option::unwrap()` on a `None` value', /tmp/substrate-node-template/pallets/template/src/lib.rs:46:40                  
+  WARN tokio-runtime-worker aura: Proposing failed: Import failed: Error at calling runtime api: Execution failed: Execution aborted due to trap: wasm trap: wasm `unreachable` instruction executed
+WASM backtrace:
+error while executing at wasm backtrace:
+    0: 0x641a8 - &lt;unknown&gt;!rust_begin_unwind
+    1: 0x2938 - &lt;unknown&gt;!core::panicking::panic_fmt::hca80ede79c2b9c5b                            
+    2: 0x298b - &lt;unknown&gt;!core::panicking::panic::hed93247151462aff                                
+    3: 0x1ccc5 - &lt;unknown&gt;!&lt;pallet_template::pallet::Pallet&lt;T&gt; as frame_support::traits::hooks::OnInitialize&lt;&lt;T as frame_system::pallet::Config&gt;::BlockNumber&gt;&gt;::on_initialize::h493bf697531cf5b3      
+    4: 0x25a40 - &lt;unknown&gt;!frame_executive::Executive&lt;System,Block,Context,UnsignedValidator,AllPalletsWithSystem,COnRuntimeUpgrade&gt;::initialize_block::h066e78a766ca61bb                              
+    5: 0x4900e - &lt;unknown&gt;!Core_initialize_block
+note: using the `WASMTIME_BACKTRACE_DETAILS=1` environment variable may show more debugging information
+2023-07-28 13:16:36.194  INFO tokio-runtime-worker substrate: 💤 Idle (0 peers), best: #671 (0x2b63…7b5f), finalized #669 (0xd406…b775), ⬇ 0 ⬆ 0
+</code></pre>
+<p>Block production have now stopped</p>
+<h2 id="wip-tutorial"><a class="header" href="#wip-tutorial">WIP tutorial</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../action/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../action/submit.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../action/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../action/submit.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
