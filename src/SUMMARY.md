@@ -19,4 +19,6 @@
     - [Submitting runtime upgrades](action/submit.md) 
 - [Real chains breaking - Case studies](case_study/readme.md)   
 
-
+- [Automatically generate tests](action/auto-test.md)
+	- [uptest-cli auto-test](cli/auto-test.md)
+	- [libuptest auto-test](code/autotest.md)

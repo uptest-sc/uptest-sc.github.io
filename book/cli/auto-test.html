@@ -1,0 +1,556 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>uptest-cli auto-test - Uptest substrate documentation</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded "><a href="../my-first-chapter.html"><strong aria-hidden="true">1.</strong> Libuptest introduction</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code/jsonrpc.html"><strong aria-hidden="true">1.1.</strong> Libuptest connect to a chain with JsonRPCClient</a></li><li class="chapter-item expanded "><a href="../code/types.html"><strong aria-hidden="true">1.2.</strong> Libuptest types</a></li><li class="chapter-item expanded "><a href="../code/ws_mod.html"><strong aria-hidden="true">1.3.</strong> Libuptest ws_mod helper</a></li><li class="chapter-item expanded "><a href="../code/decode.html"><strong aria-hidden="true">1.4.</strong> Libuptest Decoding Extrinsics</a></li></ol></li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">2.</strong> Uptest command line tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/watch_runtime_upgrade.html"><strong aria-hidden="true">2.1.</strong> Watch for runtime upgrades and custom events</a></li><li class="chapter-item expanded "><a href="../cli/event_sub.html"><strong aria-hidden="true">2.2.</strong> Subscribe to block events</a></li></ol></li><li class="chapter-item expanded "><a href="../code_samples/index.html"><strong aria-hidden="true">3.</strong> Libuptest code examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../code_samples/upgrade_change_diff.html"><strong aria-hidden="true">3.1.</strong> Check added and changed storage items after a runtime upgrade</a></li><li class="chapter-item expanded "><a href="../code_samples/subxt.html"><strong aria-hidden="true">3.2.</strong> Using Libuptest with Subxt</a></li><li class="chapter-item expanded "><a href="../code_samples/random.html"><strong aria-hidden="true">3.3.</strong> Libuptest random input generation</a></li></ol></li><li class="chapter-item expanded "><a href="../action/index.html"><strong aria-hidden="true">4.</strong> Libuptest in Action</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../action/tutorial_1.html"><strong aria-hidden="true">4.1.</strong> Tutorial #1 preventing breaking upgrades</a></li><li class="chapter-item expanded "><a href="../action/submit.html"><strong aria-hidden="true">4.2.</strong> Submitting runtime upgrades</a></li></ol></li><li class="chapter-item expanded "><a href="../case_study/index.html"><strong aria-hidden="true">5.</strong> Real chains breaking - Case studies</a></li><li class="chapter-item expanded "><a href="../action/auto-test.html"><strong aria-hidden="true">6.</strong> Automatically generate tests</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/auto-test.html" class="active"><strong aria-hidden="true">6.1.</strong> uptest-cli auto-test</a></li><li class="chapter-item expanded "><a href="../code/autotest.html"><strong aria-hidden="true">6.2.</strong> libuptest auto-test</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Uptest substrate documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/uptest-sc/uptest-sc.github.io" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="uptest-cli-auto-test"><a class="header" href="#uptest-cli-auto-test">uptest-cli auto-test</a></h1>
+<pre><code class="language-shell">$ uptest-cli -a ws://127.0.0.1:9944
+Uptest command line tool
+Connect to chain
+Scanning storage...
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;nonce&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Index&quot;), docs: [] }, Field { name: Some(&quot;consumers&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;providers&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;sufficients&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;RefCount&quot;), docs: [] }, Field { name: Some(&quot;data&quot;), ty: UntrackedSymbol { id: 5, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;AccountData&quot;), docs: [] }] })
+Storage Item name &quot;Account&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Index = query_storage_map(Account)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;ExtrinsicCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_ExtrinsicCount(testinput)
+random input is: &quot;let testinput: u32 = 4156112247u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;normal&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }, Field { name: Some(&quot;operational&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }, Field { name: Some(&quot;mandatory&quot;), ty: UntrackedSymbol { id: 8, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;T&quot;), docs: [] }] })
+Storage Item name &quot;BlockWeight&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: T = query_storage_map(BlockWeight)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;AllExtrinsicsLen&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_AllExtrinsicsLen(testinput)
+random input is: &quot;let testinput: u32 = 3905420446u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;BlockHash&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(BlockHash)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 2, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;ExtrinsicData&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let Query_chain_state = System.ExtrinsicData(); // query the StorageMap | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;Number&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Number(testinput)
+random input is: &quot;let testinput: u32 = 1953627433u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;ParentHash&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(ParentHash)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;logs&quot;), ty: UntrackedSymbol { id: 14, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;DigestItem&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Digest&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: Vec&lt;DigestItem&gt; = query_storage_map(Digest)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 18, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;Events&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let Query_chain_state = System.Events(); // query the StorageValue | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;EventCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_EventCount(testinput)
+random input is: &quot;let testinput: u32 = 770744696u32&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Sequence(TypeDefSequence { type_param: UntrackedSymbol { id: 45, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; } })
+Storage Item name &quot;EventTopics&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let Query_chain_state = System.EventTopics(); // query the StorageMap | Sequence storage type&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;spec_version&quot;), ty: UntrackedSymbol { id: 47, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;codec::Compact&lt;u32&gt;&quot;), docs: [] }, Field { name: Some(&quot;spec_name&quot;), ty: UntrackedSymbol { id: 48, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;sp_runtime::RuntimeString&quot;), docs: [] }] })
+Storage Item name &quot;LastRuntimeUpgrade&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: codec::Compact&lt;u32&gt; = query_storage_map(LastRuntimeUpgrade)&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;UpgradedToU32RefCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_UpgradedToU32RefCount(testinput)
+random input is: &quot;let testinput: bool = true&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;UpgradedToTripleRefCount&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_UpgradedToTripleRefCount(testinput)
+random input is: &quot;let testinput: bool = false&quot;
+-------------------
+Pallet: &quot;System&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;ApplyExtrinsic&quot;, fields: [Field { name: None, ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u32&quot;), docs: [] }], index: 0, docs: [] }, Variant { name: &quot;Finalization&quot;, fields: [], index: 1, docs: [] }, Variant { name: &quot;Initialization&quot;, fields: [], index: 2, docs: [] }] })
+Storage Item name &quot;ExecutionPhase&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;ApplyExtrinsic&quot;
+&quot;Finalization&quot;
+&quot;Initialization&quot;
+random input is: &quot;let Query_chain_state = System.ExecutionPhase(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Timestamp&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;Now&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Now(testinput)
+random input is: &quot;let testinput: u64 = 6356334091091031003u64&quot;
+-------------------
+Pallet: &quot;Timestamp&quot;
+Raw Type: Primitive(Bool)
+Storage Item name &quot;DidUpdate&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_DidUpdate(testinput)
+random input is: &quot;let testinput: bool = false&quot;
+-------------------
+Pallet: &quot;Aura&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 72, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Authorities&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Authorities)&quot;
+-------------------
+Pallet: &quot;Aura&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 10, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u64&quot;), docs: [] }] })
+Storage Item name &quot;CurrentSlot&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: u64 = query_storage_map(CurrentSlot)&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;Live&quot;, fields: [], index: 0, docs: [] }, Variant { name: &quot;PendingPause&quot;, fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }], index: 1, docs: [] }, Variant { name: &quot;Paused&quot;, fields: [], index: 2, docs: [] }, Variant { name: &quot;PendingResume&quot;, fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }], index: 3, docs: [] }] })
+Storage Item name &quot;State&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;Live&quot;
+&quot;PendingPause&quot;
+&quot;Paused&quot;
+&quot;PendingResume&quot;
+random input is: &quot;let Query_chain_state = Grandpa.State(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;scheduled_at&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;delay&quot;), ty: UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;N&quot;), docs: [] }, Field { name: Some(&quot;next_authorities&quot;), ty: UntrackedSymbol { id: 76, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;BoundedAuthorityList&lt;Limit&gt;&quot;), docs: [] }, Field { name: Some(&quot;forced&quot;), ty: UntrackedSymbol { id: 77, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Option&lt;N&gt;&quot;), docs: [] }] })
+Storage Item name &quot;PendingChange&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: N = query_storage_map(PendingChange)&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;NextForced&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_NextForced(testinput)
+random input is: &quot;let testinput: u32 = 3348882527u32&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Tuple(TypeDefTuple { fields: [UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, UntrackedSymbol { id: 4, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }] })
+Storage Item name &quot;Stalled&quot;
+Storage Item type StorageValue
+Code:
+Type definition of tuple output: 
+tuple (
+Primitive(U32)
+Primitive(U32)
+) // end of tuple
+random input is: &quot;let Query_chain_state = Grandpa.Stalled(); // query the StorageValue, output is a tuple of &quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;CurrentSetId&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_CurrentSetId(testinput)
+random input is: &quot;let testinput: u64 = 10791354850851657412u64&quot;
+-------------------
+Pallet: &quot;Grandpa&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;SetIdSession&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SetIdSession(testinput)
+random input is: &quot;let testinput: u32 = 1303990955u32&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;TotalIssuance&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_TotalIssuance(testinput)
+random input is: &quot;let testinput: u128 = 241209649674657693693679353451022133585u128&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;InactiveIssuance&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_InactiveIssuance(testinput)
+random input is: &quot;let testinput: u128 = 70649824094909238760224179934204586030u128&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: Some(&quot;free&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;reserved&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;misc_frozen&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }, Field { name: Some(&quot;fee_frozen&quot;), ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Balance&quot;), docs: [] }] })
+Storage Item name &quot;Account&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Balance = query_storage_map(Account)&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 95, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Locks&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Locks)&quot;
+-------------------
+Pallet: &quot;Balances&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 98, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;Vec&lt;T&gt;&quot;), docs: [] }] })
+Storage Item name &quot;Reserves&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: Vec&lt;T&gt; = query_storage_map(Reserves)&quot;
+-------------------
+Pallet: &quot;TransactionPayment&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 6, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;u128&quot;), docs: [] }] })
+Storage Item name &quot;NextFeeMultiplier&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: u128 = query_storage_map(NextFeeMultiplier)&quot;
+-------------------
+Pallet: &quot;TransactionPayment&quot;
+Raw Type: Variant(TypeDefVariant { variants: [Variant { name: &quot;V1Ancient&quot;, fields: [], index: 0, docs: [] }, Variant { name: &quot;V2&quot;, fields: [], index: 1, docs: [] }] })
+Storage Item name &quot;StorageVersion&quot;
+Storage Item type StorageValue
+Code:
+Output could be any of the following:
+&quot;V1Ancient&quot;
+&quot;V2&quot;
+random input is: &quot;let Query_chain_state = TransactionPayment.StorageVersion(); // query the StorageValue &quot;
+-------------------
+Pallet: &quot;Sudo&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;Key&quot;
+Storage Item type StorageValue
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(Key)&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;Something&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something(testinput)
+random input is: &quot;let testinput: u32 = 2166200555u32&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;Something2&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something2(testinput)
+random input is: &quot;let testinput: u64 = 13381854620199913039u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U128)
+Storage Item name &quot;Something6&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_Something6(testinput)
+random input is: &quot;let testinput: u128 = 175114842145234008150363523808777702541u128&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Composite(TypeDefComposite { fields: [Field { name: None, ty: UntrackedSymbol { id: 1, marker: PhantomData&lt;fn() -&gt; core::any::TypeId&gt; }, type_name: Some(&quot;[u8; 32]&quot;), docs: [] }] })
+Storage Item name &quot;SomeMapfirst&quot;
+Storage Item type StorageMap
+Code:
+random input is: &quot;let output: [u8; 32] = query_storage_map(SomeMapfirst)&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;NumberResultQuery&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_NumberResultQuery(testinput)
+random input is: &quot;let testinput: u32 = 308558816u32&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;SomeMaptwos&quot;
+Storage Item type StorageValue
+Code:
+fn submit_to_SomeMaptwos(testinput)
+random input is: &quot;let testinput: u64 = 11545124980994761057u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U64)
+Storage Item name &quot;SomeMaptwo&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SomeMaptwo(testinput)
+random input is: &quot;let testinput: u64 = 6774784951135778396u64&quot;
+-------------------
+Pallet: &quot;TemplateModule&quot;
+Raw Type: Primitive(U32)
+Storage Item name &quot;SomeMapthree&quot;
+Storage Item type StorageMap
+Code:
+fn submit_to_SomeMapthree(testinput)
+random input is: &quot;let testinput: u32 = 659067354u32&quot;
+-------------------
+
+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../action/auto-test.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../code/autotest.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../action/auto-test.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../code/autotest.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
