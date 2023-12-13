@@ -16,7 +16,7 @@ The auto-test module use `InputHelper` to generate random input for the user.
 ## Cargo.toml:  
 Enable the `auto-test` feature flag.  
 ```toml
-libuptest = { git = "https://github.com/uptest-sc/uptest", version = "0.1.3", features = ["auto-test"]}
+libuptest = { git = "https://github.com/uptest-sc/uptest", version = "0.1.4", features = ["auto-test"]}
 ```
 
 ## Libuptest:  
