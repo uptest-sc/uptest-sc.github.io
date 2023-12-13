@@ -14,11 +14,11 @@ host = "x86_64-unknown-linux-gnu"
 $ cat Cargo.toml  
 [package]
 name = "uptest-cli"
-version = "0.1.0"
+version = "0.1.4"
 edition = "2021"
 
 [dependencies]
-libuptest = "0.1.1"
+libuptest = "0.1.4"
 ```
 
 Note: Libuptest is currently only avaliable in the nightly edition, so you need to configure your rust-toolchain for that.  
@@ -40,7 +40,7 @@ The "ALL" feature flag does exactly what the name entails. It enables all avalia
 
 
 
-[All current feature flags on doc.rs](https://docs.rs/crate/libuptest/0.1.1/features)  
+[All current feature flags on doc.rs](https://docs.rs/crate/libuptest/0.1.4/features)  
 
 
 #### Limitations of uptest:  
