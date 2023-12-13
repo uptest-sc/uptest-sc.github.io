@@ -21,7 +21,7 @@ subxt-metadata = "0.29.0"
 tokio = { version = "1.29.1", features = ["full"] }
 sp-keyring = "24.0.0" 
 sp-runtime = "24.0.0"
-libuptest = { git = "https://github.com/uptest-sc/uptest/", branch = "main", features = ["metadatadecode"]}
+libuptest = { version = "0.1.4", features = ["metadatadecode"]}
 ```
 
 src/main.rs:  
